@@ -1,0 +1,61 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/allOrphanBlockStyle.css" TYPE="text/css" >
+<div data-ng-controller = "AllOrphanBlocksController">
+<div id="blockHeader">
+    <h1>Orphan Blocks</h1>
+</div>
+<div id="toTopOrphan" scroll-to-item scroll-to="#liveBlock"><i style="color:#FF002B;"class="fa fa-chevron-up fa-2x"></i></div>
+<table  id="liveBlock" infinite-scroll='go(pageIndex)' infinite-scroll-distance='1' infinite-scroll-disabled = 'infScroll' rules="none">
+              <tr id="liveHeader" colspan=6>
+                <td>Height</td> 
+                <td style="text-align:center;">Age</td> 
+                <td style="text-align:center;">Size</td>
+                <td style="text-align:center;">Num. Trans</td>
+                <td style="text-align:center;">Solved by</td>
+                <td style="text-align:center;">Total Transacted(NSR)</td> 
+                <td style="text-align:center;">Total Transacted(NBT)</td> 
+                <td style="text-align:center;">Block SDD</td>
+              </tr>         
+            <tbody id='blockInfo' data-ng-repeat="block in blocks">
+            <tr class="blockRow">
+            <td><a class="tableDet" data-ng-href="/orphan/{{block.bHash}}/1">{{block.bHeight}}</a></td>
+            <td    class="tableDet" style="text-align:center;">{{block.bTimeStamp}}</td>
+            <td    class="tableDet" style="text-align:center;">{{block.bSize}} KB</td>
+            <td    class="tableDet" style="text-align:center;">{{block.bNumTrans}}</td>
+            <td    class="tableDet" style="text-align:center;"><a data-ng-href="/address/{{block.bSolvedBy}}/1/newest">{{block.bSolvedBy}}</a></td>
+            <td    style="text-align:center;">
+                
+                   <font style="cursor: pointer;" data-ng-click="toggleCoin()" data-ng-if="ff.coin===true" class="tableDet">{{block.bTotRec}} NSR</font>
+                <font style="cursor: pointer;" data-ng-click="toggleCoin()" data-ng-if="ff.coin===false" class="tableDet">{{convertCurrency(block.bTotRecInt,"NSR") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+            
+            </td>
+            <td    style="text-align:center;">
+                
+                      <font style="cursor: pointer;" data-ng-click="toggleCoin()" data-ng-if="ff.coin===true" class="tableDet">{{block.bTotRecBits}} NBT</font>
+                <font style="cursor: pointer;" data-ng-click="toggleCoin()" data-ng-if="ff.coin===false" class="tableDet">{{convertCurrency(block.bTotRecBitsInt,"NBT") | currency: cf.curr.icon }} {{cf.curr.name}}</font>
+            
+            </td>
+            <td class="tableDet" style="text-align:center;">
+                {{block.bCDD | number}}                
+            </td>
+            </tr>
+           
+            </tbody>
+        
+            
+        </table>
+<div id="loadingDiv" ng-show="isLoading" ><i style="color:#088AE7;" class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+<div id="pagerDiv" ng-show="false" >
+    <div id="pagesDiv">
+    
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(1)">First</button>
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(start-1)" >Prev</button>
+    <button class="page" data-ng-repeat="num in pages" data-ng-disabled="start===num" data-ng-click="go(num)">{{num}}</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(start+1)" >Next</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(lastPage)">{{lastPage}}</button>
+    <span><form name="formGo" data-ng-submit="go(textGo)" novalidate>
+        <input  data-ng-model="textGo" id="textGo" type="text" data-ng-pattern="/^[0-9]*$/" required/> 
+        <input  type='submit' class="page" value="Go"/>
+    </form></span>
+    </div>
+</div>
+</div>

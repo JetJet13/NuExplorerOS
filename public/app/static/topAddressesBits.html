@@ -1,0 +1,66 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/topAddressesStyle.css" TYPE="text/css" >
+<div data-ng-controller = "TopBitsAddressesController">
+<div id="blockHeader">
+    <h1>NuBits Wealthiest Addresses</h1>
+</div>
+<div>
+    <font class="notice" color="grey">* The following list displays the top 100 wealthiest NBT addresses. It updates every 24hrs.</font>
+    
+
+</div>
+<div id="toTop" scroll-to-item scroll-to="#liveBlock"><i style="color:#088AE7;"class="fa fa-chevron-up fa-2x"></i></div>
+<table id="liveBlock" infinite-scroll='go(pageIndex)' infinite-scroll-distance='1' infinite-scroll-disabled = 'infScroll' rules="none">
+              <tr id="liveHeader" colspan=5 fsm-sticky-header scroll-body="'#blockInfo'" >
+                <td>Rank</td>
+                <td>Address</td>
+                <td>Balance</td>
+                <td style="text-align:center;">Num. Trans.</td>
+                <td style="text-align:center;">Num. Inputs</td>
+                <td style="text-align:center;">Num. Outputs</td>
+                <td style="text-align:center;">Last Seen</td>
+                <td style="text-align:center;">First Seen</td> 
+              </tr>         
+            <tbody id='blockInfo' data-ng-repeat="info in NBTaddresses">
+            <tr class="blockRow">
+            <td class="tableDet">{{info.rank}}</td>
+            <td class="tableDet">
+                <a data-ng-href="/address/{{info._id}}/1/newest">{{info._id}}</a>             
+            </td>
+            <td class="tableDet">
+            
+                <font data-ng-if="showPPC===true" >{{info.balance | number}} NBT</font>
+                <font data-ng-if="showPPC===false">{{convertCurrency(info.balance,"NBT",curr.symbol) | currency:curr.icon}}</font>
+                <font color="grey"> ({{(info.balance/NBTsupply)*100 | number:2}}%)</font>
+            </td>
+            <td class="tableDet" style="text-align:center;">{{info.num_trans | number}}</td>
+            <td class="tableDet" style="text-align:center;">{{info.num_inputs | number}}</td>
+            <td class="tableDet" style="text-align:center;">{{info.num_outputs | number}}</td>
+            <td class="txGranted" style="text-align:center;">
+                
+                <a data-ng-href="/blocks/{{info.lastSeen}}/1">{{info.lastSeen}}</a>           
+            </td>            
+            <td class="txGranted" style="text-align:center;">
+                <a data-ng-href="/blocks/{{info.firstSeen}}/1">{{info.firstSeen}}</a>
+            
+                </td>
+            </tr>
+           
+            </tbody>                    
+        </table>
+    
+<div id="loadingDiv" ng-show="isLoading" ><i style="color:#088AE7;" class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+<div id="pagerDiv" ng-show="false" >
+    <div id="pagesDiv">
+    
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(1)">First</button>
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(start-1)" >Prev</button>
+    <button class="page" data-ng-repeat="num in pages" data-ng-disabled="start===num" data-ng-click="go(num)">{{num}}</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(start+1)" >Next</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(lastPage)">{{lastPage}}</button>
+    <span><form name="formGo" data-ng-submit="go(textGo)" novalidate>
+        <input  data-ng-model="textGo" id="textGo" type="text" data-ng-pattern="/^[0-9]*$/" required/> 
+        <input  type='submit' class="page" value="Go"/>
+    </form></span>
+    </div>
+</div>
+</div>

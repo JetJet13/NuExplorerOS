@@ -1,0 +1,33 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/chartsStyle.css" TYPE="text/css" >
+<script type="text/javascript" src="/app/assets/javascripts/darkTheme.js"></script>
+<div id="Charts">
+<h1>Charts</h1>
+</div>
+<div id="controller" data-ng-controller="ChartController">
+<div  id="buttons">
+
+<a data-ng-href="#" data-ng-click="toggleChart('posdiff')"  class="button button-border-primary button-rounded" id="scrollers">POS Diff.</a>
+
+<a data-ng-href="#" data-ng-click="toggleChart('numtrans')" class="button button-border-primary button-rounded" id="scrollers">No. Trans.</a>
+<a data-ng-href="#" data-ng-click="toggleChart('orphan')"   class="button button-border-primary button-rounded" id="scrollers">Orphan Blocks</a>
+<a data-ng-href="#" data-ng-click="toggleChart('solvedby')" class="button button-border-primary button-rounded" id="scrollers">Blocks Solved (24hrs)</a>
+
+
+</div>
+	
+    <highchart id="chart" class="animated fadeIn" config="showChart" ></highchart>
+    <!-- <highchart ng-if="posdiff===true" id="chart" class="animated fadeIn" config="chartDifficultyS" ></highchart>
+    <highchart ng-if="numtrans===true" id="chart"class="animated fadeIn" config="chartNumTrans" ></highchart>
+    <highchart ng-if="orphan===true" id="chart"  class="animated fadeIn"config="chartOrphan" ></highchart>
+    <highchart ng-if="solvedby===true" id="chart"  class="animated fadeIn"config="chartSolvedBy" ></highchart>
+     -->
+    <div id="notice">
+    <label>* Click on the labels (on the chart) to add or remove a plot line.</label>
+    <br>
+    <label>* Drag your mouse on the chart (to form a rectangle) to zoom in on the points.</label>    
+    </div>
+    
+   
+          
+
+</div>

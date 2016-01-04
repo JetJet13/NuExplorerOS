@@ -1,0 +1,45 @@
+<div id="block1">
+  <div id="Header"><a href="/"><img id="Logo" src="/app/assets/images/nuexplorerLogov3.png"/></a>
+    <div id="navigate" data-ng-controller="NavigateController">
+      <button ng-disabled="nf.home" data-ng-click="go('','home')" class="naviB">Home</button>
+      <button ng-disabled="nf.status" data-ng-click="go('status','status')" class="naviB">Status</button>
+      <button ng-disabled="nf.charts" data-ng-click="go('charts/posdiff','charts')" class="naviB">Charts</button>
+      <button ng-disabled="nf.api" data-ng-click="go('apidocs','api')" class="naviBD">API</button>
+      <button ng-disabled="nf.motions" data-ng-click="go('motions','motions')" class="naviB">Motions</button>
+      <button ng-disabled="nf.votes" data-ng-click="go('votes','votes')" class="naviB">Votes</button>
+      <button ng-disabled="nf.orphans" data-ng-click="go('orphans/1','orphans')" class="naviB">Orphans</button>
+    </div>
+    <div id="currency" data-ng-controller="CurrencyController">
+      <select data-ng-model="getCF.curr" data-ng-change="changeCur(getCF.curr)" data-ng-options="cur.name for cur in getCF.currencies"></select>
+    </div>
+  </div>
+  <div id="status" data-ng-controller="StatusController">
+    <div id="statusTxt">
+      Conn. {{s.statusDetails.conn}} &#183;
+      Height {{s.statusDetails.blocks | number}} &#183;
+      Shares Supply ~{{s.statusDetails.sSupply | number}} &#183; </font>
+      Bits Supply ~{{s.statusDetails.bSupply | number}} &#183; </font>
+      NSR Price {{getCF.curr.icon}}{{getCF.price | number:4}} {{getCF.curr.symbol}} &#183;
+      NBT Price {{getCF.priceBits | currency:getCF.curr.icon}} {{getCF.curr.symbol}}
+    </div>
+  </div>
+  <div id="Form" data-ng-controller="FormController">
+    <div id="QueryText">Query
+      <!--img(src='/app/assets/images/querylogo.png')-->
+    </div>
+    <form id="inForm" name="queryForm" data-ng-submit="querySubmit(fof.input)" novalidate="novalidate">
+      <input id="user" name="Input" data-ng-disabled="fof.searchBox" data-ng-model="fof.input" data-ng-pattern="/^[a-zA-Z0-9]*$/" data-ng-maxlength="64" type="text" placeholder="Enter Block Hash, Block Height, Transaction Hash or Address" required="required"/>
+      <input data-ng-disabled="fof.searchBox" value="Search" type="submit" class="search"/>
+    </form>
+    <div data-ng-show="false" class="svrMntnce">
+      <div class="svrMntnceText">Under this new redesign, please refrain from using the Safari browser. A fix is in the works.</div>
+    </div>
+    <div id="error" data-ng-show="fof.noResult">
+      <div id="errorText">Query Yielded No Results</div>
+    </div>
+  </div>
+</div>
+<div id="block2">
+  <div data-ng-view="ng-view"></div>
+</div>
+<div id="Footer">Created & Maintained by: Johny Georges <br/>Contact: jgeorges371@gmail.com</div>

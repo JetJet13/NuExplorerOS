@@ -1,0 +1,206 @@
+
+<div data-ng-controller="TransController">
+<LINK data-ng-if="txData.chain === 'main' " REL=StyleSheet HREF="/app/assets/stylesheets/txStyle.css" TYPE="text/css" >
+<LINK data-ng-if="txData.chain === 'orphan' " REL=StyleSheet HREF="/app/assets/stylesheets/orphantxStyle.css" TYPE="text/css" >
+<div data-ng-if="txData.chain === 'main' " id='txHeader' >Transaction</div>
+<div data-ng-if="txData.chain === 'orphan' " id='txHeader' >Orphaned Transaction</div>
+<div id='checkBox' >
+    
+    <a data-ng-href="#" data-ng-if="ff.extDet===false" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Extra Details</a>
+    <a data-ng-href="#" data-ng-if="ff.extDet===true" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Reg. Details</a>
+    
+</div>
+
+
+
+
+<table id='tableTX' >
+ <tbody >
+
+        <tr  >
+            
+            <td data-ng-if="txData.tx_Type === 'NSR' " colspan="6" id="transIDShares">{{txData.txHash}}<span style="float:right;margin-right:5px;">{{txData.txTimeStamp}}</span></td>
+            <td data-ng-if="txData.tx_Type === 'NBT' " colspan="6" id="transIDBits">{{txData.txHash}}<span style="float:right;margin-right:5px;">{{txData.txTimeStamp}}</span></td>
+        </tr>
+        <tr class="transDetails">
+            <td class="inputs">
+                <li data-ng-repeat="i in txData.inputs">
+                
+                 <a data-ng-if="i.inAddress!=='Coinbase' && i.inAddress!=='Parked NuBits'" data-ng-href="/address/{{i.inAddress}}/1/newest">{{i.inAddress}}</a>
+                    <font color='grey' data-ng-if="i.inAddress==='Coinbase' || i.inAddress==='Parked NuBits'">{{i.inAddress}}</font>
+                 <a  style="color:#11198C;" data-ng-if="i.inAddress!=='Coinbase' && ff.extDet===true" data-ng-href="/transactions/{{i.prevTx}}">(output)</a>
+                 
+                
+                </li>
+                </td>
+                <td  class="outVals">
+                            <li data-ng-repeat="i in txData.inputs">
+                            
+                            <font data-ng-if="ff.coin===true && i.inAddress!=='Coinbase'">{{i.inVal}} {{txData.tx_Type}}</font>
+                            <font data-ng-if="ff.coin===false && i.inAddress!=='Coinbase'">{{convertCurrency(i.inValInt,txData.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            </li>
+                </td>
+                <td><img src="/app/assets/images/greenarrowv2.png" /></td>
+                    <td class="outputs"><li data-ng-repeat="o in txData.outputs">
+                        
+                        <a data-ng-if="(o.outAddress!=='None' && o.outAddress!=='Nonstandard' && o.outAddress!=='Parked NuBits')" data-ng-href="/address/{{o.outAddress}}/1/newest">{{o.outAddress}}</a>
+                        <font color='grey' data-ng-if="o.outAddress==='None' || o.outAddress==='Nonstandard' || o.outAddress==='Parked NuBits'">{{o.outAddress}}</font>
+                        <a data-ng-if="(o.outAddress!=='None' || o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='spent'" style="color:red;" data-ng-href="/transactions/{{o.txSpent}}">({{o.status}})</a>
+            <span style="color:green;" data-ng-if="(o.outAddress!=='None' && o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='unspent'">({{o.status}})</span>
+                        
+                        
+                        </li></td>
+                        <td  class="outVals"><li data-ng-repeat="o in txData.outputs">
+                                <font data-ng-if="ff.coin===true">{{o.outVal}} {{txData.tx_Type}}</font>
+                                <font data-ng-if="ff.coin===false">{{convertCurrency(o.outValInt,txData.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            
+                            </li></td>
+                            <td>
+                                <button class="totCDD" data-ng-if="txData.totCDD!=='0'">{{txData.totCDD}} SDD</button>
+                                
+                                <button data-ng-click="toggleCoin()" data-ng-if="ff.coin===false" class="totOutput">{{convertCurrency(txData.totOutInt,txData.tx_Type,curr.symbol) | currency:cf.curr.icon }} {{cf.curr.name}}</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="ff.coin===true" class="totOutput">{{txData.totOut}} {{txData.tx_Type}}</button>
+                                
+                                <br>
+                            <button class="conf" data-ng-if="Conf >= 6 && Conf < 10 ">{{txData.conf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="Conf < 6 && Conf > 1">{{txData.conf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="Conf === 1">{{txData.conf}} Confirmation</button>
+                            <button class="confRed" data-ng-if="Conf === 0">Unconfirmed</button>
+                            </td>
+        </tr>
+            
+            
+
+
+        
+    </tbody>
+</table>
+
+
+
+<table id='tableSum'  rules="none">
+<tr>
+<td id='SumHeaderShares' data-ng-if="txData.tx_Type === 'NSR' " colspan="4">
+    <span style="float:left; width:50%;">Summary</span>
+    <span style="float:left;text-align:left;">Inputs and Outputs</span>
+</td>
+    
+<td id='SumHeaderBits'  data-ng-if="txData.tx_Type === 'NBT' " colspan="4">
+    
+    <span style="float:left; width:50%;">Summary</span>
+    <span style="float:left;text-align:left;">Inputs and Outputs</span>    
+
+</td>
+
+
+
+</tr>
+	<tr class='even'>
+	<td style="width:15%;">TimeStamp</td>
+    <td id='TimeStamp'  style="text-indent:50px;width:35%;">{{txData.txTimeStamp}}</td>
+        
+    <td style="width:15%;">Total Inputs</td>
+                        	<td id='totalInputs' style="text-indent:50px">
+                                
+                              <font  data-ng-if="ff.coin===true">{{txData.totIn}} {{txData.tx_Type}}</font>
+                              <font  data-ng-if="ff.coin===false">{{convertCurrency(txData.totInInt,txData.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            </td>
+    
+        
+    </tr>
+    	 <tr class='even'>
+         <td style="width:15%;">Confirmations</td>
+         <td id="BlockConfirmations" style="text-indent:50px;width:35%;">
+            <font color='#11198C' data-ng-if="Conf >= 6 ">{{txData.conf}}</font>
+            <font color='#FF8400' data-ng-if="Conf < 6 && Conf !== 0 ">{{txData.conf}}</font>
+             <font color='red' data-ng-if="Conf=== 0 ">{{txData.conf}}</font>
+            </td>     
+            <td style="width:15%;">Total Outputs</td>
+                                 <td id='totalOutputs' style="text-indent:50px">
+                                     <font  data-ng-if="ff.coin===true">{{txData.totOut}} {{txData.tx_Type}}</font>
+                                     <font  data-ng-if="ff.coin===false">{{convertCurrency(txData.totOutInt,txData.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                                  </td>
+             
+             
+        
+         </tr>
+         	  <tr class='even'>
+              <td style="width:15%;">Block Height</td>
+              <td id='BlockHeight' style="text-indent:50px;width:35%;">
+                  
+                  <a data-ng-if="txData.chain === 'main' " data-ng-href="/blocks/{{txData.blockHash}}/1">{{txData.forBlock}}</a>
+                  <a data-ng-if="txData.chain === 'orphan' " data-ng-href="/orphan/{{txData.blockHash}}/1">{{txData.forBlock}}</a>
+                
+              </td>
+                  
+                  <td style="width:15%;">Fee</td>
+                                      <td id='fee' style="text-indent:50px;">
+                                         
+                                          <font color='red' data-ng-if="ff.coin===true">{{txData.fee}} {{txData.tx_Type}}</font>
+                                          <font color='red' data-ng-if="ff.coin===false">{{convertCurrency(txData.feeInt,txData.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                  
+              </tr>
+            
+        
+</table>
+						
+<table id='tableInScript' >
+<tr >
+<td id="transIDShares" data-ng-if="txData.tx_Type === 'NSR' ">
+ Input Scripts 
+<span data-ng-if="ff.extDet===false" style="float:right;margin-right:5px;">(Click Extra Details to reveal Scripts)</span>   
+    
+</td>
+<td id="transIDBits" data-ng-if="txData.tx_Type === 'NBT' ">
+ Input Scripts 
+<span data-ng-if="ff.extDet===false" style="float:right;margin-right:5px;">(Click Extra Details to reveal Scripts)</span>   
+    
+</td>
+</tr>
+<tr data-ng-if="ff.extDet===true">
+<td>
+<li class="scripts" data-ng-repeat="script in txData.inputs">
+    <br>{{script.inScript}}<br><strong>Hex Decoded: </strong> {{hex2a(script.inScript)}}
+</li>
+</td>
+</tr>        
+
+</table>
+    
+    
+    
+    
+    
+    
+<table id='tableOutScript' >
+<tr>
+<td data-ng-if="txData.tx_Type === 'NSR' " id="transIDShares"  >Output Scripts 
+<span data-ng-if="ff.extDet===false" style="float:right;margin-right:5px;">(Click Extra Details to reveal Scripts)</span> 
+</td>
+<td data-ng-if="txData.tx_Type === 'NBT' " id="transIDBits"  >Output Scripts 
+<span data-ng-if="ff.extDet===false" style="float:right;margin-right:5px;">(Click Extra Details to reveal Scripts)</span> 
+</td>
+</tr>
+
+<tr data-ng-if="ff.extDet===true">
+<td>
+<li class="scripts" data-ng-repeat="script in txData.outputs">
+    <br>{{script.outScript}}<br><strong>Hex Decoded: </strong> {{hex2a(script.outScript)}}
+</li>
+</td>
+</tr> 
+    
+    
+    
+    
+    
+</table>
+    
+    
+    	<div>
+    	{{error}}
+        </div>
+</div>

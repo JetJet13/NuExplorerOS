@@ -1,0 +1,50 @@
+#apiDoc{
+    margin-top: 181px;
+    height: 80px;
+    padding-top: 1px;
+    border-radius: 5px;
+    text-shadow: 0px 1px #006AA6;
+    font-family: 'Roboto', sans-serif;
+    background-color: #088AE7;
+    color:#FFFFFF;
+    width: 100%;
+    text-align: center;
+}
+#blockAPI{
+   
+    margin-top: 15px;
+    font: 100% 'Roboto', sans-serif;
+}
+#txAPI{
+  
+    font: 100% 'Roboto', sans-serif;
+}
+#addressAPI{
+    
+    font: 100% 'Roboto', sans-serif;
+}
+li{
+    padding-top: 5px;
+	padding-bottom: 5px;
+    list-style-type: none;
+    font: 90% 'Roboto', sans-serif;
+}
+#codeBox{
+    background-color: #F2F2F2;
+    width: 800px;
+    height: auto;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+#apiHeader{
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 1px;
+    height: 40px;
+    background-color: #F2F2F2;
+    color:#141414;
+    font: 90% 'Roboto', sans-serif;
+}

@@ -1,0 +1,98 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/homeStyle.css" TYPE="text/css" >
+
+<div id="blockHeader">Latest Blocks</div>
+            <div data-ng-controller="LiveBlockController">
+            <table id="liveBlock" rules="none">
+              <tr id="liveHeader" colspan=6>
+                <td>Height</td> 
+                <td style="text-align:center;">Age</td> 
+                <td style="text-align:center;">Size</td>
+                <td style="text-align:center;">Num. Trans</td>
+                <td style="text-align:center;">Solved by</td>
+                <td style="text-align:center;">Total Transacted (NSR)</td>
+                <td style="text-align:center;">Total Transacted (NBT)</td>
+                <td style="text-align:center;">Block SDD</td>
+              </tr>         
+            <tbody class="animated fadeInDown" id='blockInfo' data-ng-repeat="block in blocks.blockList">
+            <tr class="blockRow">
+            <td><a class="tableDet" data-ng-href="/blocks/{{block.height}}/1">{{block.height | number}}</a></td>
+            <td    class="tableDet" style="text-align:center;">{{block.timestamp | timeAgo}}</td>
+            <td    class="tableDet" style="text-align:center;">{{block.size | number}} KB</td>
+            <td    class="tableDet" style="text-align:center;">{{block.numTrans | number}}</td>
+            <td    class="solvedby" ><a data-ng-href="/address/{{block.solvedBy}}/1/newest">{{block.solvedBy}}</a></td>
+            <td    style="text-align:center;">
+                
+                <font style="cursor: pointer;" data-ng-if="ff.coin===true" data-ng-click="toggleCoin()" class="tableDet">{{block.totRec | number}} NSR</font>
+                <font style="cursor: pointer;" data-ng-if="ff.coin===false" data-ng-click="toggleCoin()" class="tableDet">{{convertCurrency(block.totRec,"NSR") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+            
+            </td>
+            <td    style="text-align:center;">
+                
+                <font style="cursor: pointer;" data-ng-if="ff.coin===true" data-ng-click="toggleCoin()" class="tableDet">{{block.totRecBits | number}} NBT</font>
+                <font style="cursor: pointer;" data-ng-if="ff.coin===false" data-ng-click="toggleCoin()" class="tableDet">{{convertCurrency(block.totRecBits,"NBT") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+            
+            </td>
+            <td class="tableDet" style="text-align:center;">
+                {{block.cdd | number}}
+            </td>
+            </tr>
+           
+            </tbody>
+        
+            
+        </table>
+            <hr>
+            <div id="divallBlocks">
+                <a data-ng-href="#" class="button button-border-primary" data-ng-click="goAllBlocks()">All Blocks</a>
+            </div>
+                
+           </div>
+
+
+            <div id="txHeader">Incoming Transactions <span style="font-size: 10pt;color: #DEDEDE">(unconfirmed)</span></div>
+            <table id="liveTX" rules="none" data-ng-controller="LiveTransController">
+              <tr id="liveHeader" colspan=6>
+                <td>Hash</td> 
+                <td style="text-align:center;">Age</td> 
+                <td style="text-align:center;">Total Received</td> 
+          
+              </tr>         
+            <tbody class="animated fadeInDown" id='txInfo' data-ng-repeat="trans in tx">
+            <tr class="txRow" >
+            <td><a class="tableDet"  data-ng-href="/transactions/{{trans.hash}}">{{trans.hash}}</a></td>
+            <td    class="tableDet"  style="text-align:center;">{{trans.timestamp | timeAgo}}</td>
+            <td    style="text-align:center;">
+                
+                <button data-ng-click="showUSDResult()" data-ng-if="showPPC===true" class="totOutputHome">{{trans.totRec}} NSR</button>
+                <button data-ng-click="showPPCResult()" data-ng-if="showPPC===false" class="totOutputHome">{{convertUSD(trans.totRec,"NSR") | currency}}</button>
+                
+            
+            </td>
+            </tr>
+            </tbody>        
+        </table>
+        <div id="otherLinks">
+        <h3 id="linksHeader">About</h3>    
+        <p>Welcome to NuExplorer,
+            <br>
+            NuExplorer is a <a href="http://www.nubits.com/" target="_blank">NuBits</a> Block Explorer powered by 
+            <a href="http://mongodb.org/" target="_blank">MongoDB</a>, 
+            <a href="http://expressjs.com/" target="_blank">Expressjs</a>, 
+            <a href="https://angularjs.org/" target="_blank">Angularjs</a> and 
+            <a href="http://nodejs.org/" target="_blank">Nodejs</a>. 
+            Query for blocks, transactions, and addresses found in the <a href="http://www.nubits.com/" target="_blank">NuBits</a> network.
+            <br>
+            
+            <br>
+              SDD = Share Days Destroyed
+            <br>
+              SDA = Share Days Accumulated
+        </p>
+        </div>
+        <div id="spacer">
+        	{{error}}
+        </div>
+            
+
+
+

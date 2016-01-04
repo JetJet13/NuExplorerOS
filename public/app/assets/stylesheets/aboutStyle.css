@@ -1,0 +1,50 @@
+#about{
+    margin-top: 181px;
+    height: 80px;
+    padding-top: 1px;    
+    text-shadow: 0px 1px #EEEEEE;
+    font-family: 'Roboto', sans-serif;
+    background-color: none;
+    color:  #00a1cb;  
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #00a1cb;
+}
+#poweredBy{
+    width: 650px;  
+    text-align: center;
+}
+#socialbox{
+    font: 100% 'Roboto', sans-serif;
+    color:#575757;
+    width:600px;
+    text-align: center;
+    margin: 5% auto;
+}
+#socialbuttons{
+    
+    text-align: center;
+    margin: 0 auto;
+    opacity: 0.6;
+    cursor: pointer;
+}
+#socialbuttons:hover{
+    opacity: 1;
+}
+#PPCquote{
+    width: auto;
+    height:80px;
+    background-color: #F0F0F0;
+    display: table-cell;
+    vertical-align: middle;
+    font: 100% 'Roboto', sans-serif;
+    color: #4A4A4A;
+}
+h3{ 
+    font-family: 'Roboto', sans-serif;
+    color:#141414;
+}
+p{  
+    font: 100% 'Roboto', sans-serif;
+    color:#575757;
+}

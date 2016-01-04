@@ -1,0 +1,283 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/apiStyle.css", TYPE="text/css" >
+<div id="apiDoc">
+<h1>API Documentation</h1>
+</div>
+<div id="apiHeader">Peerchain.co API's are free to use. Happy Coding.
+    <br>
+    Note: There are two versions of most values.The values with the suffix <code>Int</code> are meant for data manipulation and the other is for display.
+</div>
+<div data-ng-controller="apiPageController">
+
+<div id="blockAPI">
+<label><u>Block API</u></label>
+<ul>
+    <li><strong>Single Block</strong>, parameters : [ <font color="green">block height or block hash</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/blockSingle/<font color="green">458</font></code></pre>
+    <div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>,   <font color="grey">//or false</font>
+    "hash": "00000000004beefc124140c18f343198135a3d2c63ef1df8cfb3592b94bf59b1",
+    "heightInt": <font color="#004CFF">458</font>,
+    "height": "458",
+    "sizeInt": <font color="#004CFF">0.259765625</font>,   <font color="grey">//KB</font>
+    "size": "0.26", 
+    "prevHash": "00000000004a12b3d9e634a77d9329dfb1b04363248201a843eac9346fcdc199",
+    "nxtHash": "000000000065acb47dd1d4fcee64a79ffb25ad87a4c2167d15067859634ed455",
+    "mrkRoot": "512050570dffbd0c74f01452da0804e23cd048ed18ba6cbfeb38ee6b3a515765",
+    "timeStampUnix": <font color="#004CFF">1345444521</font>,
+    "timeStamp": " 20 Aug 2012  02:35:21",
+    "confInt": <font color="#004CFF">119000</font>,
+    "conf": "119,000",
+    "type": "Proof -of- Work",
+    "bitsInt": <font color="#004CFF">460804540</font>,
+    "bits": "460,804,540",
+    "difficultyInt": <font color="#004CFF">549.24</font>,
+    "difficulty": "549.24",
+    "ver": <font color="#004CFF">1</font>,
+    "nonceInt": <font color="#004CFF">3665090591</font>,
+    "nonce": "3,665,090,591",
+    "numTransInt": <font color="#004CFF">1</font>,
+    "numTrans": "1",
+    "rewardInt": <font color="#004CFF">2065.45</font>,
+    "reward": "2,065.45",
+    "totBlockInt": <font color="#004CFF">2065.45</font>,
+    "totBlock": "2,065.45",
+    "totCDDInt": <font color="#004CFF">0</font>,
+    "totCDD": "0",
+    "totFeeInt": <font color="#004CFF">0</font>,
+    "totFee": "0"
+}</code></pre>
+</div>
+    </li>
+    <li><strong>Latest Block</strong>, parameters : [ none ] <pre><code class="language-javascript">https://peerchain.co/api/v1/blockLatest/</code></pre>
+     <div id="codeBox">
+<pre><code class="language-css">
+{
+    "exists": <font color="#E85900">true</font>, 
+    "hash": "000000000001c904eb17c8aaca246cfef678ffaa4c417a3990d818315197ea84",
+    "heightInt": <font color="#004CFF">4999</font>,
+    "height": "4,999",
+    "sizeInt": <font color="#004CFF">0.26171875</font>,
+    "size": "0.262",
+    "prevHash": "0000000000021093b43aa44436c74add87509be0a3d1ddb18460e78e3b0e2540",
+    "nxtHash": "",
+    "mrkRoot": "50b0d5366dfda8b7de6df45782e7bb8cfed40222e7a59ca3d48f178cc5fd9783",
+    "timeStampUnix": <font color="#004CFF">1347365420</font>,
+    "timeStamp": " 11 Sep 2012  08:10:20",
+    "confInt": <font color="#004CFF">1</font>,
+    "conf": "1",
+    "type": "PoW",
+    "bitsInt": <font color="#004CFF">453529342</font>,
+    "bits": "453,529,342",
+    "difficultyInt": <font color="#004CFF">7887.65</font>,
+    "difficulty": "7,887.65",
+    "ver": <font color="#004CFF">1</font>,
+    "nonceInt": <font color="#004CFF">2480744549</font>,
+    "nonce": "2,480,744,549",
+    "numTransInt": <font color="#004CFF">1</font>,
+    "numTrans": "1",
+    "rewardInt": <font color="#004CFF">1061.01</font>,
+    "reward": "1,061.01",
+    "totRecInt": <font color="#004CFF">1061.01</font>,
+    "totRec": "1,061.01",
+    "totCDDInt": <font color="#004CFF">0</font>,
+    "totCDD": "0",
+    "totFeeInt": <font color="#004CFF">0</font>,
+    "totFee": "0"
+}
+</code></pre>
+</div>
+    </li>
+    <li><strong>Block Exists</strong>, parameters : [ <font color="green">block height or block hash</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/blockExist/<font color="green">458</font></code></pre>
+<div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>   <font color="grey">//or false</font>   
+}</code></pre>
+</div>
+</li>
+</ul>
+</div>
+<div id="txAPI">
+<label><u>Transaction API</u></label>
+<ul>
+    <li><strong>Single Transaction</strong>, parameters : [ <font color="#FF004C">trans.</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/txDetails/<font color="#FF004C">0fefa9706bb49ec...ae9bdf79aec2d3b680c23</font></code></pre>
+    <div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>,   <font color="grey">//or false</font>
+    "txHash": "0fefa9706bb49ecd19e4dcad542d41a37b9d200fa06ae9bdf79aec2d3b680c23",
+    "txTimeStampUnix": <font color="#004CFF">1347364350</font>,
+    "txTimeStamp": " 11 Sep 2012  07:52:30",
+    "inCount": "1",
+    "inCountInt": <font color="#004CFF">1</font>,
+    "outCount": "1",
+    "outCountInt": <font color="#004CFF">1</font>,
+    "forBlockInt": <font color="#004CFF">4996</font>,
+    "forBlock": "4,996",
+    "confInt": <font color="#004CFF">4</font>,
+    "conf": "4",
+    "inputs": [
+        {
+            "inScript": "04a6294f5003c4c400062f503253482f",
+            "inAddress": "Coinbase",
+            "inValInt": <font color="#004CFF">0</font>,
+            "inVal": "0",
+            "in_num": <font color="#004CFF">0</font>
+        }
+    ],
+    "outputs": [
+        {
+            "outAddress": "PQ3MN6dnQmw34eFMcRPWuVsuW9eLBSfaEp",
+            "outValInt": <font color="#004CFF">1061.71</font>,
+            "outVal": "1,061.71",
+            "out_num": <font color="#004CFF">0</font>,
+            "status": "unspent",
+            "txSpent": [],
+            "outScript": "032a0e71eee3fac67470222e031e5b48d24895e33701d27d51fa2de045402aabd8 OP_CHECKSIG"
+        }
+    ],
+    "totInInt": <font color="#004CFF">0</font>,
+    "totIn": "0",
+    "totOutInt": <font color="#004CFF">1061.71</font>,
+    "totOut": "1,061.71",
+    "totCDDInt": <font color="#004CFF">0</font>,
+    "totCDD": "0",
+    "feeInt": <font color="#004CFF">0</font>,
+    "fee": "0"
+}</code></pre>
+</div>
+    </li>
+<li><strong>Transaction Exists</strong>, parameters : [ <font color="#FF004C">trans.</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/txExist/<font color="#FF004C">0fefa9706bb49ec...ae9bdf79aec2d3b680c23</font></code></pre>
+<div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>  <font color="grey">//or false</font>   
+}</code></pre>
+</div>
+</li>
+</ul>
+</div>
+<div id="addressAPI">
+<label><u>Address API</u></label>
+<ul>
+    <li><strong>Address Info</strong>, parameters : [ <font color="#006187">address</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/addressInfo/<font color="#006187">PQ3MN6dnQmw34eFMcRPWuVsuW9eLBSfaEp</font></code></pre>
+    <div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>,   <font color="grey">//or false</font>
+    "address": "PQ3MN6dnQmw34eFMcRPWuVsuW9eLBSfaEp",
+    "numTransInt": <font color="#004CFF">303</font>,
+    "numTrans": "303",
+    "hash160": "a97d394e1a09ee860b6f5d58405697d9b347e3ad",
+    "totalCDAInt": <font color="#004CFF">31693638.6</font>,
+    "totalCDA": "31,693,638.6",
+    "totalBalanceInt": <font color="#004CFF">352151.54</font>,
+    "totalBalance": "352,151.54",
+    "totalOutInt": <font color="#004CFF">0</font>,             <font color="grey">//total value out (sent)</font>
+    "totalOut": "0",
+    "totalInInt": <font color="#004CFF">352151.54</font>,     <font color="grey">//total value in (received)</font>
+    "totalIn": "352,151.54",
+    "totalCDDInt": <font color="#004CFF">0</font>,
+    "totalCDD": "0"
+}</code></pre>
+</div>
+    </li>
+    <li><strong>Address Unspent Outputs</strong>, parameters : [ <font color="#006187">address</font> ], <font color="grey">(the response will show every unspent output)</font><pre><code class="language-javascript">https://peerchain.co/api/v1/addressUnspent/<font color="#006187">PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t</font></code></pre>
+    <div id="codeBox">
+<pre><code class="language-css">
+[      <font color="grey">//sorted from oldest to newest</font>
+    {
+        "txHash": "af5f6fcea13dea2a29dd9f12bf2b96e78fc677f027ab4c14aec61b07710a5162",
+        "txTimeStampUnix": <font color="#004CFF">1345427254</font>,
+        "txTimeStamp": " 19 Aug 2012  21:47:34",
+        "outNum": <font color="#004CFF">0</font>,
+        "address": "PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t",
+        "val": <font color="#004CFF">2307.79</font>,
+        "status": "unspent",
+        "outScript": "0351ba545b215e3f93a10d9b773f1cccd3a94bc33b9f7e986b8d32500e77c78212 OP_CHECKSIG"
+    },
+    {
+        "txHash": "dc794df942b2fb08eb0bbd016d3304801346b59080ab3b91b7c1a70c29a6426e",
+        "txTimeStampUnix": <font color="#004CFF">1345437415</font>,
+        "txTimeStamp": " 20 Aug 2012  00:36:55",
+        "outNum": <font color="#004CFF">0</font>,
+        "address": "PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t",
+        "val": <font color="#004CFF">2177.75</font>,
+        "status": "unspent",
+        "outScript": "0351ba545b215e3f93a10d9b773f1cccd3a94bc33b9f7e986b8d32500e77c78212 OP_CHECKSIG"
+    },
+    {
+        "txHash": "b5b584d7ea7701d4d5e6d71cd0769b9e82787346cfe1acc6afeda7d97d8fdccc",
+        "txTimeStampUnix": <font color="#004CFF">1345473483</font>,
+        "txTimeStamp": " 20 Aug 2012  10:38:03",
+        "outNum": <font color="#004CFF">0</font>,
+        "address": "PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t",
+        "val": <font color="#004CFF">1737.41</font>,
+        "status": "unspent",
+        "outScript": "0351ba545b215e3f93a10d9b773f1cccd3a94bc33b9f7e986b8d32500e77c78212 OP_CHECKSIG"
+    },
+    {
+        "txHash": "e67aa4021a5f7c1860857c09e8598522667fc4a754118dc157f98979ce3be160",
+        "txTimeStampUnix": <font color="#004CFF">1345597685</font>,
+        "txTimeStamp": " 21 Aug 2012  21:08:05",
+        "outNum": <font color="#004CFF">0</font>,
+        "address": "PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t",
+        "val": <font color="#004CFF">1353.71</font>,
+        "status": "unspent",
+        "outScript": "0351ba545b215e3f93a10d9b773f1cccd3a94bc33b9f7e986b8d32500e77c78212 OP_CHECKSIG"
+    },
+    {
+        "txHash": "f2d841449fae9ea4580bde958e96f4540c21c9aeb21ace77bef3b60b8f8d30ad",
+        "txTimeStampUnix": <font color="#004CFF">1346246179</font>,
+        "txTimeStamp": " 29 Aug 2012  09:16:19",
+        "outNum": <font color="#004CFF">1</font>,
+        "address": "PEWpsR4nK4mMfZSEqMf9QhAmSwh5ceNY3t",
+        "val": <font color="#004CFF">656.957483</font>,
+        "status": "unspent",
+        "outScript": "OP_DUP OP_HASH160 40fe284b1b1d2df70a662420f106e82918e32eb3 OP_EQUALVERIFY OP_CHECKSIG"
+    }
+]
+</code></pre>
+</div>
+    </li>
+    <li><strong>Address exists</strong>, parameters : [ <font color="#006187">address</font> ] <pre><code class="language-javascript">https://peerchain.co/api/v1/addressExist/<font color="#006187">PQ3MN6dnQmw34eFMcRPWuVsuW9eLBSfaEp</font></code></pre>
+<div id="codeBox">
+<pre><code class="language-css">{
+    "exists": <font color="#E85900">true</font>    <font color="grey">//or false</font>
+}</code></pre>
+</div>
+</li>
+</ul>
+</div>
+<div id="addressAPI">
+<label><u>Network Status API</u></label>
+<ul>
+    <li><strong>Network Info</strong>, parameters : [ none ] <pre><code class="language-javascript">https://peerchain.co/api/v1/networkInfo/</code></pre>
+    <div id="codeBox">
+<pre><code class="language-css">
+{
+    "heightInt": <font color="#004CFF">119797</font>,
+    "height": "119,797",
+    "mSupplyInt": <font color="#004CFF">21522051</font>,
+    "mSupply": "21,522,051",
+    "marketCap": "30,841,099",   <font color="grey">//USD</font>
+    "priceUSD": <font color="#004CFF">1.433</font>,
+    "connInt": <font color="#004CFF">9</font>,
+    "conn": "9",
+    "ver": "v0.4.0ppc.rc1-beta",
+    "protocolVer": <font color="#004CFF">60004</font>,
+    "powDiffInt": <font color="#004CFF">144783487</font>,
+    "powDiff": "144,783,487",
+    "posDiffInt": <font color="#004CFF">11</font>,
+    "posDiff": "11",
+    "networkghps": "208,601",
+    "posInt": <font color="#004CFF">88618</font>,
+    "pos": "88,618",
+    "powInt": <font color="#004CFF">31180</font>,
+    "pow": "31,180",
+    "txCountInt": <font color="#004CFF">553274</font>,
+    "txCount": "553,274"
+}
+</code></pre>
+</div>
+    </li>
+
+</ul>
+</div>
+</div>

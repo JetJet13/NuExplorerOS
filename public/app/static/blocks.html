@@ -1,0 +1,309 @@
+
+
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/blockStyle.css" TYPE="text/css" >
+<div data-ng-controller = 'BlockController'>
+<div id="blockHeader">Block #{{blockData.bHeight}}</div>
+<div id="toTop" scroll-to-item scroll-to="#SummaryTable"><i style="color:#088AE7;"class="fa fa-chevron-up fa-2x"></i></div>
+<table id="SummaryTable" rules="none">
+<tr id="SummaryHeader">
+  <td style="border-bottom: 2px solid #00a1cb;" colspan="2">Summary</td>
+    
+</tr>
+ <tr  class="even">
+ <td title="Number of Transactions">No. Trans.</td>
+ <td id="NumTrans" style="text-indent:50px">{{blockData.bNumTrans}}</td>
+</tr>
+<tr  class="even">
+<td title="The total amount of all PPC received">Total Transacted (NBT)</td>
+ <td id="totalOutput" style="text-indent:50px;">
+     
+     <font color='green' data-ng-if="ff.coin===true">{{blockData.totBlockBits}} NBT</font>
+     <font color='green' data-ng-if="ff.coin===false">{{convertCurrency(blockData.totBlockBitsInt,"NBT") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+     
+     </td>
+ </tr>
+ <tr  class="even">
+ <td>Total Transacted (NSR)</td>
+ <td id="totalOutput" style="text-indent:50px;">
+     
+     <font color='green' data-ng-if="ff.coin===true">{{blockData.totBlock | number}} NSR</font>
+     <font color='green' data-ng-if="ff.coin===false">{{convertCurrency(blockData.totBlockInt,"NSR") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+     
+     </td>
+ </tr>
+ 
+
+ <tr class="even">
+ <td>Total Fees</td>
+ <td id="fees" style="text-indent:50px;">
+     
+    <font color='red' data-ng-if="ff.coin===true">{{blockData.totFee | number}} NSR</font>
+    <font color='red' data-ng-if="ff.coin===false">{{convertCurrency(blockData.totFeeInt,"NSR") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+     
+     
+     </td>
+ </tr>
+  <tr class="even">
+ <td>Total SDD</td>
+ <td id="totalCDD" style="text-indent:50px;"><font color='orange'>{{blockData.totCDD}} SDD</font></td> 
+ </tr>
+ <tr class="even">
+ <td>Block Height</td>
+ <td id="Height" style="text-indent:50px">{{blockData.bHeight}}</td>
+ </tr>
+ <tr class="even">
+ <td>Block Type</td>
+ <td id="BlockType" style="text-indent:50px">{{blockData.bType}}</td>
+ </tr>
+ <tr class="even">
+ <td>Block Chain</td>
+ <td id="BlockType" style="text-indent:50px">
+     <font data-ng-if="blockData.bChain === 'main' " color="green">({{blockData.bChain}})</font>
+     <font data-ng-if="blockData.bChain === 'orphan' "color="red">({{blockData.bChain}})</font>
+     </td>
+ </tr>
+ <tr class="even">
+ <td>Block Confirmations</td>
+ <td id="BlockConfirmations" style="text-indent:50px;">
+     <font color='#11198C' data-ng-if="blockData.bConfInt >= 6 ">{{blockData.bConf | number}}</font>
+     <font color='#FF8400' data-ng-if="blockData.bConfInt < 6 ">{{blockData.bConf | number}}</font> 
+ </td>
+ </tr>
+ <tr class="even">
+ <td>TimeStamp</td>
+ <td id="TimeStamp" style="text-indent:50px">{{blockData.bTimeStamp}}</td>
+ </tr>
+ <tr class="even">
+ <td>Difficulty</td>
+ <td id="Difficulty" style="text-indent:50px">{{blockData.bDifficulty}}</td>
+ </tr>
+ <tr class="even">
+ <td>Bits</td>
+ <td id="Bits" style="text-indent:50px">{{blockData.bBits}}</td>
+ </tr>
+ <tr class="even">
+ <td >Size</td>
+ <td id="Size" style="text-indent:50px">{{blockData.bSize}} KB</td>
+ </tr>
+ <tr  class="even">
+ <td>Version</td>
+ <td id="Version" style="text-indent:50px">{{blockData.bVer}}</td>
+ </tr>
+ <tr class="even">
+ <td>Nonce</td>
+ <td id="Nonce" style="text-indent:50px">{{blockData.bNonce}}</td>
+ </tr>
+ <tr class="even">
+ <td>Block Reward</td>
+ <td id="BlockReward" style="text-indent:50px;color:green;">
+                            <font color='green' data-ng-if="ff.coin===true">{{blockData.bReward}} NSR</font>
+                            <font color='green' data-ng-if="ff.coin===false">{{convertCurrency(blockData.bRewardInt,"NSR") | currency:cf.curr.icon }} {{cf.curr.name}}</font></td>
+ 
+</tr>
+ <tr class="even">
+ <td>Solved by</td>
+ <td id="solvedby" style="text-indent:50px"><a data-ng-href="/address/{{blockData.bSolvedBy}}/1/newest">{{blockData.bSolvedBy}}</a></td>
+ </tr>
+</table>
+ 
+ 
+						
+                        <table id="HashTable"  rules="none" >
+                        <tr id="HashHeader" >
+                        <td style="border-bottom: 2px solid #00a1cb;" colspan="2" >Hashes</td>
+                        </tr>
+                         <tr  class="even">
+                         <td>Block Hash</td>
+                            <td id="BlockHash" style="text-indent:50px">
+                             {{blockData.bHash}}
+                             </td>
+                         </tr>
+                         <tr  class="even">
+                         <td>Previous Block Hash</td>
+                         <td id="PreviousBlock" style="text-indent:50px">
+                            <a data-ng-href="/blocks/{{blockData.bPrevHash}}/1">{{blockData.bPrevHash}}</a> 
+                             </td>
+                         </tr>
+                         <tr class="even">
+                         <td>Next Block Hash</td>
+                         <td id="NextBlock" style="text-indent:50px">
+                             <a data-ng-href="/blocks/{{blockData.bNxtHash}}/1">{{blockData.bNxtHash}}</a> 
+                             </td>
+                         </tr>
+                         <tr  class="even">
+                         <td>MerkleRoot</td>
+                         <td id="MerkleRoot" style="text-indent:50px">{{blockData.bMrkRoot}}</td>
+                         </tr>
+                            
+</table>
+    <div data-ng-if="ff.extDet===true" class="custDiv">
+    <table id="CustTable"  rules="none" >
+                        <tr id="HashHeader" >
+                        <td colspan="2" >Custodian Votes</td>
+                        </tr>
+                        <tr data-ng-if="bCusto.length === 0">
+                            <td colspan="2" class="even"><font color="grey">No Custodian Votes</font></td>
+                        </tr>
+                        <tr  class="even" data-ng-repeat="custo in bCusto">
+                         <td >{{custo.address}}</td>
+                        <td >
+                        <font  data-ng-if="ff.coin===true">{{custo.amount | number}} NBT</font>
+                        <font  data-ng-if="ff.coin===false">{{convertCurrency(custo.amount,"NBT") | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                         </td>
+                         </tr>
+                        
+                         
+                         
+</table>
+</div>
+<div data-ng-if="ff.extDet===true" class="pRateDiv">
+<table id="pRateTable"  rules="none" >
+                        <tr id="HashHeader" >
+                        <td colspan="2" >Park Rate Votes</td>
+                        </tr>
+                        <tr data-ng-if="bPRates.length === 0">
+                            <td colspan="2" class="even"><font color="grey">No Park Rate Votes</font></td>
+                        </tr>
+                        <tr  class="even" data-ng-repeat="pRate in bPRates">
+                         <td >{{pRate.blocks | number}} <font color="grey">blocks</font></td>
+                         <td >{{pRate.rate*100 | number:3}}%</td>
+                         </tr>
+                        
+                         
+                         
+</table>
+    </div>
+<div data-ng-if="ff.extDet===true" class="moDiv">
+    <table id="CustTable"  rules="none" >
+                        <tr id="HashHeader" >
+                        <td colspan="2" >Motion Votes</td>
+                        </tr>
+                        <tr data-ng-if="blockData.bMoHash.length === 0">
+                            <td colspan="2" class="even"><font color="grey">No Motion Votes</font></td>
+                        </tr>
+                        <tr  class="even" data-ng-repeat="custo in blockData.bMoHash">
+                         <td >{{custo}}</td>                    
+                        
+                         </td>
+                         </tr>
+                        
+                         
+                         
+</table>
+</div>
+
+   
+                        
+                        
+
+
+
+
+<div class="txHeader" >Transactions</div>
+<div id='checkBox' >
+
+<a data-ng-href="#" data-ng-if="ff.extDet===false" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Extra Details</a>
+    <a data-ng-href="#" data-ng-if="ff.extDet===true" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Reg. Details</a>
+    
+</div>
+
+<table id="transTable" infinite-scroll='go(blockData.bHeightInt,pageIndex,blockData.bNumTrans)' infinite-scroll-distance='1' infinite-scroll-disabled = 'infScroll' > 
+    <tbody data-ng-repeat="trans in txData" id='transBody'>
+
+        <tr >
+            <td data-ng-if="trans.tx_Type === 'NSR' " colspan="6" id="transIDShares"><a  data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a><span style="float:right;margin-right:5px;">{{trans.txTimeStamp}}</span></td>
+            <td data-ng-if="trans.tx_Type === 'NBT' " colspan="6" id="transIDBits"><a  data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a><span style="float:right;margin-right:5px;">{{trans.txTimeStamp}}</span></td>
+            
+        </tr>
+        <tr class="transDetails">
+            <td class="inputs">
+                <li data-ng-repeat="i in trans.inputs">
+                    
+                    <a data-ng-if="i.inAddress!=='Coinbase' && i.inAddress!=='Parked NuBits'" data-ng-href="/address/{{i.inAddress}}/1/newest">{{i.inAddress}}</a>
+                    <font color="grey" data-ng-if="i.inAddress==='Coinbase' || i.inAddress==='Parked NuBits'">{{i.inAddress}}</font>
+                    <a  style="color:#11198C;" data-ng-if="i.inAddress!=='Coinbase' && ff.extDet===true" data-ng-href="/transactions/{{i.prevTx}}">(output)</a>
+                    
+                    
+                    
+                </li>
+                </td>
+                <td  class="outVals">
+                            <li data-ng-repeat="i in trans.inputs">
+                            
+                            <font data-ng-if="ff.coin===true && i.inAddress!=='Coinbase'">{{i.inVal}} {{trans.tx_Type}}</font>
+                            <font data-ng-if="ff.coin===false && i.inAddress!=='Coinbase'">{{convertCurrency(i.inValInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            </li></td>
+                <td><img src="/app/assets/images/greenarrowv2.png" /></td>
+                    <td class="outputs">
+                        <li data-ng-repeat="o in trans.outputs">
+                        
+             <a data-ng-if="(o.outAddress!=='None' && o.outAddress!=='Nonstandard' && o.outAddress!=='Parked NuBits')" data-ng-href="/address/{{o.outAddress}}/1/newest">{{o.outAddress}}</a>
+            <font color='grey' data-ng-if="o.outAddress==='None' || o.outAddress==='Nonstandard' || o.outAddress==='Parked NuBits'">{{o.outAddress}}</font>
+                            <a data-ng-if="(o.outAddress!=='None' || o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='spent'" style="color:red;" data-ng-href="/transactions/{{o.txSpent}}">({{o.status}})</a>
+           <span style="color:green;" data-ng-if="(o.outAddress!=='None' && o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='unspent'">({{o.status}})</span>
+                            
+                            
+                        </li>
+            </td>
+                        <td  class="outVals">
+                            <li data-ng-repeat="o in trans.outputs">
+                                <font data-ng-if="ff.coin===true">{{o.outVal}} {{trans.tx_Type}}</font>
+                                <font data-ng-if="ff.coin===false">{{convertCurrency(o.outValInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            </li>
+                        </td>
+                            <td>
+                                <button class="totCDD" data-ng-if="trans.totCDD!=='0'">{{trans.totCDD}} SDD</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="ff.coin===false" class="totOutput">{{convertCurrency(trans.totOutInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="ff.coin===true" class="totOutput">{{trans.totOut}} {{trans.tx_Type}}</button>
+                                <br>
+                            <button class="conf" data-ng-if="Conf >= 6 && Conf < 10 ">{{blockData.bConf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="Conf < 6  && Conf > 1">{{blockData.bConf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="Conf === 1">{{blockData.bConf}} Confirmation</button>
+                            </td>
+        </tr>
+        
+    </tbody>
+    
+</table>
+<div id="loadingDiv" ng-show="isLoading" ><i style="color:#088AE7;" class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+
+<!-- <div id="pagerDiv" ng-show="false" >
+    <div id="pagesDiv" data-ng-if="blockData.bNumTransInt > 20 ">
+    
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(1)">First</button>
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(start-1)" >Prev</button>
+    <button class="page" data-ng-repeat="num in pages" data-ng-disabled="start===num" data-ng-click="go(num)">{{num}}</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(start+1)" >Next</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(lastPage)">{{lastPage}}</button>
+    <span><form name="formGo" data-ng-submit="go(textGo)" novalidate>
+        <input  data-ng-model="textGo" id="textGo" type="text" data-ng-pattern="/^[0-9]*$/" required/> 
+        <input  type='submit' class="page" value="Go"/>
+    </form></span>
+    </div>
+</div> -->
+		<div>
+    	{{error}}
+     	</div>
+</div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

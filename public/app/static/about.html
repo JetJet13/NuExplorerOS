@@ -1,0 +1,54 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/aboutStyle.css" TYPE="text/css" >
+<div data-ng-controller="AboutController">
+
+<div id="about">
+<h1>About</h1>
+</div>
+<div>
+
+<h3>What is Peerchain ?</h3>
+
+<p>
+Peerchain is a database that stores data about the Peercoin network. Users can inquire for data by entering a block height, a block hash, a transaction hash, or an address. 
+</p>
+
+<h3>What is Peercoin ?</h3>
+<p>
+<div id="PPCquote">
+<blockquote><i>Peercoin is a crypto-currency, a decentralized network allowing peer-to-peer financial transactions worldwide over the internet. Through an innovative minting algorithm, the Peercoin network consumes far less energy, maintains stronger security, and rewards users in more sustainable ways than other cryptocurrencies.</i><br>- Peercoin.net
+</blockquote></div>
+</p>
+<h3>What Powers Peerchain ?</h3>
+    <div id="poweredBy">       
+        <img src="/app/assets/images/poweredBy.png" />
+    </div>
+    <p>
+    <strong><a href="http://mongodb.org/" target="_blank">MongoDB</a></strong> - MongoDB is an open-source document database, and the leading NoSQL database.
+    <br>
+    <strong><a href="http://expressjs.com/" target="_blank">ExpressJS</a></strong> - A minimal and flexible node.js web application framework, providing a robust set of features for building single and multi-page, and hybrid web applications. 
+    <br>
+    <strong><a href="https://angularjs.org/" target="_blank">AngularJS</a></strong> - An open-source MVC framework developed by Google that uses HTML and Javascript to build single page applications.
+    <br>
+    <strong><a href="http://nodejs.org/" target="_blank">NodeJS</a></strong> - Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.
+    
+    
+    </p>
+<h3>What is CDA?</h3>
+<p>
+CDA is an abbreviation for Coin Days Accumulated. This is a measurement of how much coin age (measured in days) an addresses' unspent outputs have accumulated/generated. CDA is derived from the formula, <code>(current timestamp - transaction timestamp of unspent output)/86400</code>. CDA also has a cap limit of 90 days,so If an unspent output has been sitting for more than 90 days, the network stops counting the coin age after 90 days.
+</p>
+<h3>What is CDA for?</h3>
+<p>   
+CDA is for those that are interested in minting new coins. Minting is the process of solving a block in the Peercoin network using an addresses' coin age as "hashing power", and receiving a reward in PPC relative to the amount of coin age accumulated. Note that in terms of a minting reward, the amount of coin age that determines how much PPC an address receives as a reward has no cap limit. 
+</p>
+<h3>What is CDD?</h3>
+<p>   
+CDD is an abbreviation for Coin Days Destroyed. This is a measurement of how much coin age (measured in days) is destroyed/consumed in a transaction, by the inputs of the transaction. Although CDD serves no real purpose, it is meant as a reference regarding how long it has been since the input addresses' unspent output (now used as an input in the transaction) have been sitting. Note that CDD does not apply to the coinbase transactions in Proof -of- Work blocks. 
+</p>
+</div>
+<div id="socialbox">
+Follow Peerchain.co on Twitter to get the latest news regarding the site and feel free to tweet @Peerchain if you have any suggestions for the site.
+<br>
+<a href="https://twitter.com/Peerchain" target="_blank"><img id="socialbuttons" src="/app/assets/images/twitter-badge.png"/></a>
+</div>
+</div>

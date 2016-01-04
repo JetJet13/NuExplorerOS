@@ -1,0 +1,217 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/addressStyle.css" TYPE="text/css" >
+
+<div data-ng-controller="AddressController">
+<div id='addressHeader'> 
+    
+    <font data-ng-if="AddressData.type==='NSR'" >NuShares Address </font>
+    <font data-ng-if="AddressData.type==='NBT'" >NuBits Address </font>
+</div>
+
+<table id='tableSum' rules="none">
+<tr class='even'>
+<td id='SumHeaderShares' data-ng-if="AddressData.type === 'NSR' " colspan="2" style="border-bottom: 2px solid #00a1cb;">Address Summary</td>
+<td id='SumHeaderBits' data-ng-if="AddressData.type === 'NBT' " colspan="2"   style="border-bottom: 2px solid #085C99;">Address Summary</td>
+</tr>
+	<tr class='even'>
+	<td>Address</td>
+    <td id='Address' style="text-indent:50px">{{AddressData.address}}</td>
+    </tr>
+        <tr class='even'>
+			<td>Hash 160</td>
+    		<td id='Hash160' style="text-indent:50px">{{AddressData.hash160}}</td>
+    		</tr>
+    	 <tr class='even'>
+			<td>No. Trans.</td>
+    		<td id='numTrans' style="text-indent:50px">{{AddressData.numTrans}}</td>
+    		</tr>
+            
+                <tr class='even' data-ng-if="AddressData.type === 'NSR' ">
+			<td><strong>SDA</strong></td>
+    		<td id='totalCDD' style="text-indent:50px"><font color='green'>{{AddressData.totalCDA}} SDA</font><font color='grey'>{{day}}</font></td>
+    		</tr>
+  
+</table>
+
+<table id='tableAdd'  rules="none">
+<tr class='even'>
+<td id='SumHeaderShares' data-ng-if="AddressData.type === 'NSR' " colspan="2" style="border-bottom: 2px solid #00a1cb;">Address Details</td>
+<td id='SumHeaderBits' data-ng-if="AddressData.type === 'NBT' " colspan="2"   style="border-bottom: 2px solid #085C99;">Address Details</td>
+</tr>
+
+    	 <tr class='even'>
+         <td>Total Sent</td>
+         <td id='totalSent' style="text-indent:50px">
+             <font data-ng-if="ff.coin===true">{{AddressData.totalOut}} {{AddressData.type}}</font>
+             <font data-ng-if="ff.coin===false">{{convertCurrency(AddressData.totalOutInt,AddressData.type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+             
+             </td>
+         </tr>
+        
+         	  <tr class='even'>
+              <td>Total Received</td>
+              <td id='totalReceived' style="text-indent:50px">
+                  <font  data-ng-if="ff.coin===true">{{AddressData.totalIn}} {{AddressData.type}}</font>
+                  <font  data-ng-if="ff.coin===false">{{convertCurrency(AddressData.totalInInt,AddressData.type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                  </td>
+              </tr>
+                    <tr class='even' data-ng-if="AddressData.type === 'NSR' ">
+                    <td>Total SDD</td>
+                    <td id='totalCDD' style="text-indent:50px"><font color='orange'>{{AddressData.totalCDD}} SDD</font></td>
+                    </tr>
+                       <tr class='even'>
+                       <td><strong>Final Balance</strong></td>
+                       <td id='finalBalance' style="text-indent:50px;">
+                           
+                           <font color='green' data-ng-if="ff.coin===true">{{AddressData.totalBalance}} {{AddressData.type}}</font>
+                           <font color='green' data-ng-if="ff.coin===false">{{convertCurrency(AddressData.totalBalanceInt,AddressData.type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                           
+                           </td>
+                       </tr>
+
+</table>
+<qrcode id="qr" data-ng-controller="qrController" data="{{data}}" size="180"></qrcode>
+
+<div id='checkBox' >
+    <div style="float:right;">
+    <a data-ng-href="#" data-ng-if="ff.extDet===false" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Extra Details</a>
+    <a data-ng-href="#" data-ng-if="ff.extDet===true" data-ng-click="toggleDet()" class="button button-border-action button-rounded">Reg. Details</a>
+    </div>
+</div>
+    
+<!--
+<button id="posCalc" data-ng-click="toggleCalc()">POS Calculator</button>
+    
+<div id="calcInfo" data-ng-show="posCalc===true">
+    
+<table rules="none" style="height:36px;">
+<tr>
+<td class="posCalcCell">Stake <input class="stakeInfo" type="number" data-ng-model="percentStake" min="0" max="100" integer /> (%)</td>
+<td class="posCalcCell">CDA {{(percentStake/100)*(AddressData.totalCDAInt) | number}} </td>
+<td class="posCalcCell">No. blocks from now <input class="stakeInfo" type="number" data-ng-model="numBlocks" min="1" max=1000 integer/> </td>
+<td class="posCalcCell">Prob. {{calculateProb()}}(%)</td>
+
+</tr>
+</table>
+</div>
+//-->  
+
+<div id='txHeader' >Transactions</div><div id="sortLabel" ><a data-ng-href="/address/{{AddressData.address}}/1/newest">Newest</a> | <a data-ng-href="/address/{{AddressData.address}}/1/oldest">Oldest</a> | <font id="orphanTag" data-ng-if="AddressData.totalOrphans === 0">Orphan</font><a data-ng-if="AddressData.totalOrphans > 0" data-ng-href="/address/{{AddressData.address}}/1/orphan">Orphan</a> </div>
+<div id="toTop" scroll-to-item scroll-to="#tableSum"><i style="color:#088AE7;"class="fa fa-chevron-up fa-2x"></i></div>
+<table id="transTable" infinite-scroll='go(AddressData.address,pageIndex,sortId,AddressData.numTransInt)' infinite-scroll-distance='1' infinite-scroll-disabled = 'infScroll' > 
+
+    <tbody data-ng-repeat="trans in txData" >
+
+        <tr data-ng-if="trans.chain === 'main' " >
+            
+            <td data-ng-if="trans.tx_Type === 'NSR' " colspan="6" id="transIDShares">
+                <a  data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a>
+                <span style="float:right;margin-right:5px;">{{trans.txTimeStamp}}</span>
+            </td>
+            <td data-ng-if="trans.tx_Type === 'NBT' " colspan="6" id="transIDBits">
+                <a  data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a>
+                <span style="float:right;margin-right:5px;">{{trans.txTimeStamp}}</span>
+            </td>
+            
+        </tr>
+        <tr data-ng-if="trans.chain === 'orphan' " >
+            
+            <td data-ng-if="trans.tx_Type === 'NSR' " colspan="6" id="transIDSharesOrphan">
+                <a class="oTx"  data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a>
+                <span style="float:right;margin-right:5px;">(Orphan) {{trans.txTimeStamp}}</span>
+            </td>
+            <td data-ng-if="trans.tx_Type === 'NBT' " colspan="6" id="transIDBitsOrphan">
+                <a class="oTxB" data-ng-href="/transactions/{{trans.txHash}}">{{trans.txHash}}</a>
+                <span style="float:right;margin-right:5px;">(Orphan) {{trans.txTimeStamp}}</span>
+            </td>
+            
+        </tr>
+        <tr class="transDetails">
+            <td class="inputs">
+                <li data-ng-repeat="i in trans.inputs">
+                
+                    <strong data-ng-if="i.inAddress===AddressData.address">{{i.inAddress}}</strong>
+            
+            <a data-ng-href="/address/{{i.inAddress}}/1/newest" data-ng-if="i.inAddress!==AddressData.address && i.inAddress!=='Coinbase' && i.inAddress!=='Parked NuBits'">{{i.inAddress}}</a>
+            <font color="grey" data-ng-if="i.inAddress==='Coinbase' || i.inAddress==='Parked NuBits'">{{i.inAddress}}</font>
+                    <a  style="color:#11198C;" data-ng-if="i.inAddress!=='Coinbase' && ff.extDet===true" data-ng-href="/transactions/{{i.prevTx}}">(output)</a>
+            
+                    
+                </li>
+                </td>
+                <td  class="outVals">
+                            <li data-ng-repeat="i in trans.inputs">
+                            
+            <font data-ng-if="ff.coin===true && i.inAddress!=='Coinbase'">{{i.inVal}} {{trans.tx_Type}}</font>
+            <font data-ng-if="ff.coin===false && i.inAddress!=='Coinbase'">{{convertCurrency(i.inValInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            </li></td>
+                <td data-ng-if="trans.totOutCheck >= trans.totInCheck"><img src="/app/assets/images/greenarrowv2.png" /></td>
+                <td data-ng-if="trans.totOutCheck < trans.totInCheck"><img src="/app/assets/images/redarrowv2.png" /></td>
+                
+                    <td class="outputs">
+                        <li data-ng-repeat="o in trans.outputs">
+                        
+                        <strong data-ng-if="o.outAddress===AddressData.address">{{o.outAddress}}</strong>
+<a data-ng-if="o.outAddress!=='None' && o.outAddress!=='Nonstandard' && o.outAddress!==AddressData.address && o.outAddress!=='Parked NuBits'" data-ng-href="/address/{{o.outAddress}}/1/newest">{{o.outAddress}}</a>
+                            <font color='grey' data-ng-if="o.outAddress==='None' || o.outAddress==='Nonstandard' || o.outAddress==='Parked NuBits'">{{o.outAddress}}</font> 
+            <a data-ng-if="(o.outAddress!=='None' || o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='spent'" style="color:red;" data-ng-href="/transactions/{{o.txSpent}}">({{o.status}})</a>
+           <span style="color:green;" data-ng-if="(o.outAddress!=='None' && o.outAddress!=='Nonstandard') && ff.extDet===true && o.status==='unspent'">({{o.status}})</span>
+                           
+                        
+                        </li></td>
+                        <td  class="outVals">
+                            <li data-ng-repeat="o in trans.outputs">
+                            
+                            <font data-ng-if="ff.coin===true">{{o.outVal}} {{trans.tx_Type}}</font>
+                            <font data-ng-if="ff.coin===false">{{convertCurrency(o.outValInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</font>
+                            
+                            </li></td>
+                            <td>
+                                <button class="totCDD" data-ng-if="trans.totCDD!=='0'">{{trans.totCDDCheck}} SDD</button>
+                                
+                                
+                                
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck == trans.totInCheck && ff.coin===false" class="totOutput">{{convertCurrency(0,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck == trans.totInCheck && ff.coin===true" class="totOutput">0 {{trans.tx_Type}}</button>
+                                
+                                
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck > trans.totInCheck && ff.coin===false" class="totOutput">{{convertCurrency(trans.totOutCheckInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck > trans.totInCheck && ff.coin===true" class="totOutput">{{trans.totOutCheck}} {{trans.tx_Type}}</button>
+                                
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck < trans.totInCheck && ff.coin===false" class="totOutputRed"> - {{convertCurrency(trans.totInCheckInt,trans.tx_Type) | currency:cf.curr.icon }} {{cf.curr.name}}</button>
+                                <button data-ng-click="toggleCoin()" data-ng-if="trans.totOutCheck < trans.totInCheck && ff.coin===true" class="totOutputRed"> - {{trans.totInCheck}} {{trans.tx_Type}}</button>
+                                
+                                                               
+                                <br>
+                            <button class="conf" data-ng-if="trans.confInt >= 6 && trans.confInt < 10 ">{{trans.conf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="trans.confInt < 6 && trans.confInt > 1 ">{{trans.conf}} Confirmations</button>
+                            <button class="confAmber" data-ng-if="trans.confInt === 1">{{trans.conf}} Confirmation</button>
+                            <button class="confRed" data-ng-if="trans.confInt === 0">Unconfirmed</button>
+                            </td>
+        </tr>
+                    
+    </tbody>
+    
+</table>
+<div id="loadingDiv" ng-show="isLoading" ><i style="color:#088AE7;" class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+
+<!-- <div id="pagerDiv" ng-show="false" >
+    <div id="pagesDiv" data-ng-if="AddressData.numTransInt > 20 ">
+    
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(1)">First</button>
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(start-1)" >Prev</button>
+    <button class="page" data-ng-repeat="num in pages" data-ng-disabled="start===num" data-ng-click="go(num)">{{num}}</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(start+1)" >Next</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(lastPage)">{{lastPage}}</button>
+    <form name="formGo" data-ng-submit="go(textGo)" novalidate>
+        <input  data-ng-model="textGo" id="textGo" type="text" data-ng-pattern="/^[0-9]*$/" required/> 
+        <input  type='submit' class="page" value="Go"/>
+    </form>
+    </div>
+</div> -->
+
+		<div>
+    	{{error}}
+        </div>
+
+    </div>

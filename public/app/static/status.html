@@ -1,0 +1,146 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/statusStyle.css" TYPE="text/css" >
+<div id="networkStatus">
+<h1>Network Status</h1>
+</div>
+    
+<div data-ng-controller="StatusPageController">
+<table id="statusTable" rules="none">
+<tr id="statusHeader">
+<td style="border-bottom: 2px solid #00a1cb;" colspan="2">Network Summary</td>
+</tr>
+    <tr class="even">
+        <td>Height</td>
+        <td>{{data.heightInt | number}}</td>
+    </tr>
+    <tr class="even">
+        <td>Shares Supply</td>
+        <td>{{data.sSupply | number:0}} NSR</td>        
+    </tr>
+        <tr class="even">
+        <td>Bits Supply</td>
+        <td>{{data.bSupply | number:0}} NBT</td>        
+    </tr>
+        <tr class="even">
+            <td>Market Cap (NSR)</td>
+            <td><font color='green'>{{convertCurrency(data.sSupply,"NSR") | currency:cf.curr.icon}} {{cf.curr.symbol}}</font></td>        
+        </tr>
+            
+            <tr class="even">
+                <td>Market Price (NSR)</td>
+                <td>{{cf.curr.icon}}{{cf.price | number:4}} {{cf.curr.symbol}}</td>
+            </tr>
+                <tr class="even">
+            <td>Market Cap (NBT)</td>
+            <td>
+                <font color='green'>{{convertCurrency(data.bSupply,"NBT") | currency:cf.curr.icon}} {{cf.curr.symbol}}</font>
+                </td>        
+            </tr>
+                <tr class="even">
+                <td>Market Price (NBT)</td>
+                <td>{{cf.priceBits | currency:cf.curr.icon}} {{cf.curr.symbol}}</td>
+            </tr>
+                 <tr class="even">
+                        <td>Connections</td>
+                        <td>{{data.conn}}</td>
+                    </tr>
+                        <tr class="even">
+                            <td>Network Version</td>
+                            <td>{{data.ver}}</td>
+                        </tr>
+                            <tr class="even">
+                                <td>Protocol Version</td>
+                                <td>{{data.protocolVer}}</td>
+                            </tr>
+                                <tr class="even">
+                                    <td>Difficulty (PoS)</td>
+                                    <td>{{data.posDiff | number:6}}</td>
+                                </tr>
+                                    <tr class="even">
+                                    <td>Difficulty (PoW)</td>
+                                    <td>{{data.powDiff | number:0}}</td>
+                                </tr>
+                                    <tr class="even">
+                                    <td>Network Gh/s</td>
+                                    <td>{{data.networkghps}} Gh/s</td>
+                                    </tr>
+                                        <tr class="even">
+                                            <td>Proof -of- Stake Blocks</td>
+                                            <td>{{data.pos}} <font color='grey'>({{posPercent}}%)</font></font></td>
+                                        </tr>
+                                            <tr class="even">
+                                                <td>Proof -of- Work Blocks</td>
+                                                <td>{{data.pow}} <font color='grey'>({{powPercent}}%)</font></td>
+                                            </tr>
+                                                <tr class="even">
+                                                    <td>Total Num. Trans.</td>
+                                                    <td>{{data.txCount}}</td>
+                                                </tr>
+    
+    </table>
+    <table id="detailsTable" rules="none">
+<tr id="statusHeader">
+<td style="border-bottom: 2px solid #00a1cb;" colspan="2">Network Details (past 24hrs)</td>
+</tr>
+    <tr class="even">
+        <td>Num. Blocks</td>
+        <td>{{data.dayBlocks}}</td>
+    </tr>
+    <tr class="even">
+        <td>Total Transacted (NBT)</td>
+        <td>{{data.dayTransactedBits}} NBT</td>        
+    </tr>
+    <tr class="even">
+            <td>Market Total Transacted (NBT)</td>
+            <td><font color='green'>{{convertCurrency(data.dayTransactedBitsInt,"NBT") | currency:cf.curr.icon}} {{cf.curr.symbol}}</font></td>        
+        </tr>
+    <tr class="even">
+        <td>Total Transacted (NSR)</td>
+        <td>{{data.dayTransacted}} NSR</td>        
+    </tr>
+        <tr class="even">
+            <td>Market Total Transacted (NSR)</td>
+            <td><font color='green'>{{convertCurrency(data.dayTransactedInt,"NSR") | currency:cf.curr.icon}} {{cf.curr.symbol}}</font></td>        
+        </tr>
+            <tr class="even">
+                <td>Num. Trans.</td>
+                <td>{{data.dayNumTrans}}</td>
+            </tr>
+                <tr class="even">
+                            <td>Avg. Time Between Blocks</td>
+                            <td>{{data.avgDayTimeBlocks}} minutes</td>
+                        </tr>
+                            
+    
+    </table>
+<div id="otherLinks">
+<h4>Other Links</h4>
+    <a class="descrip" data-ng-href="/peers/1">Connected Nodes</a><font class="descrip" color="grey"> - A table of all past and present connected nodes</font>
+    <br>
+    <a class="descrip" data-ng-href="/topNSRaddresses/1">Wealthiest NSR Addresses</a><font class="descrip" color="grey"> - A list of the richest NSR addresses</font>
+    <br>
+    <a class="descrip" data-ng-href="/topNBTaddresses/1">Wealthiest NBT Addresses</a><font class="descrip" color="grey"> - A list of the richest NBT addresses</font>
+    
+  
+
+</div>
+<div id="PRHeader">Park Rates in Effect</div>
+<table id="statusTablePR" rules="none">
+
+<tr id="statusHeader">
+<td>Num. Blocks</td>
+<td>Rate</td>
+<td>Duration</td>
+    
+</tr>
+    <tr class="even" data-ng-repeat="prInfo in data.parkRates">
+    <td>{{prInfo.duration | number:0}}</td>
+    <td>{{prInfo.rate | number:3}}%</td>
+    <td>{{prInfo.time}}</td>
+    </tr>
+                            
+    
+    </table>
+<div id="notice" data-ng-if="isPR===0">There are currently no Park Rates in effect</div>
+<div style="margin-bottom:8%;clear:both;float:left;"> </div>
+
+</div>

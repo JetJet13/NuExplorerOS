@@ -1,0 +1,62 @@
+<LINK REL=StyleSheet HREF="/app/assets/stylesheets/voteStyle.css" TYPE="text/css" >
+<div data-ng-controller = "JAllSuccessMotionsController">
+<div id="blockHeader">
+    <h1>Successful Motions</h1>
+</div>
+<div>
+    
+</div>
+<div  id="buttons">
+
+<a data-ng-href="#" data-ng-click="goVotes()"   class="button button-border-primary button-rounded">In Progress Motions</a>
+
+
+</div>
+<div id="toTop" scroll-to-item scroll-to="#liveBlock"><i style="color:#088AE7;"class="fa fa-chevron-up fa-2x"></i></div>
+<table  id="liveBlock" infinite-scroll='go(pageIndex)' infinite-scroll-distance='1' infinite-scroll-disabled = 'infScroll' rules="none">
+              <tr id="liveHeader" colspan=6>
+                <td >Hash</td>               
+                
+                <td style="text-align:center;">First Seen</td>
+                 
+                <td style="text-align:center;">Num. Votes</td>
+              
+                <td style="text-align:center;">Granted on</td>  
+                
+              </tr>         
+            <tbody id='blockInfo' data-ng-repeat="mot in moData">
+            <tr class="blockRow">
+            <td class="tableDet"><a data-ng-href="/votedfor/{{mot.hash}}/1">{{mot.hash}} <a  data-ng-if="mot.url !=='?' " href="{{mot.url}}" target="_blank"><i class="fa fa-external-link-square"></i></a></td>
+            
+            
+            
+            <td    class="tableDet" style="text-align:center;">{{mot.firstSeen | number}}</td>
+            
+            <td    class="tableDet" style="text-align:center;">{{mot.numVotes | number:0}}<font color="grey"> ({{(mot.numVotes/10000)*100 | number:2}}%)</font></td>
+              
+                <td    class="tableDet" style="text-align:center;"><a data-ng-href="/blocks/{{mot.blockHeight}}/1">{{mot.blockHeight | number}}</a></td>
+                    
+            </tr>
+           
+            </tbody>
+        
+            
+        </table>
+    <div id="notice" data-ng-if="isData===0">There are currently no successful motions</div>
+<div id="loadingDiv" ng-show="isLoading" ><i style="color:#088AE7;" class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+
+<div id="pagerDiv" ng-show="false" >
+    <div id="pagesDiv">
+    
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(1)">First</button>
+    <button class="page" data-ng-if="start > 1" data-ng-click="go(start-1)" >Prev</button>
+    <button class="page" data-ng-repeat="num in pages" data-ng-disabled="start===num" data-ng-click="go(num)">{{num}}</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(start+1)" >Next</button>
+    <button class="page" data-ng-if="start < (lastPage-5)" data-ng-click="go(lastPage)">{{lastPage}}</button>
+    <span><form name="formGo" data-ng-submit="go(textGo)" novalidate>
+        <input  data-ng-model="textGo" id="textGo" type="text" data-ng-pattern="/^[0-9]*$/" required/> 
+        <input  type='submit' class="page" value="Go"/>
+    </form></span>
+    </div>
+</div>
+</div>

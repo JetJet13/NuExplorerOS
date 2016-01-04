@@ -1,0 +1,41 @@
+#Charts{
+    margin-top: 181px;
+    margin-bottom: 20px;
+    height: 80px;
+    padding-top: 1px;    
+    text-shadow: 0px 1px #EEEEEE;
+    font-family: 'Roboto', sans-serif;
+    background-color: none;
+    color:  #00a1cb;  
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #00a1cb;
+}
+
+#buttons{      
+    width:45%;
+    margin: 0 auto;   
+}
+#scrollers{
+    
+    float: left;    
+        
+    margin-right: 3px;
+    margin-bottom: 3px;
+   
+}
+
+#chart{
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-bottom: 10px;
+}
+#notice{
+    float: left;
+    clear: both;
+    color: grey;
+    font: 70% 'Roboto', sans-serif;
+    margin-bottom: 3px;
+}
+
