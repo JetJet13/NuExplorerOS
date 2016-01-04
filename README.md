@@ -2,7 +2,7 @@ nuexplorer
 ==========
 
 ##Nu network Block Explorer
-NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blocks, transactions, and addresses found in the Nu network.
+NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blocks, transactions, and addresses found in the Nu network (https://nubits.com).
 
 ###Dependencies
 - Nodejs
