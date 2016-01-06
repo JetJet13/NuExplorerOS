@@ -29,6 +29,10 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
 2. Create the collections in `BlockDB` by typing `db.createCollection('<CollectionName>')`
   - `BlockCollection`
   - `ChartCollection`
+    - after creation paste in mongo shell
+      - `db.ChartCollection.insert({ "_id":"orphan", "orph":[] })`
+      - `db.ChartCollection.insert({ "_id":"diff", "pos":[] })`
+      - `db.ChartCollection.insert({ "_id":"numtrans", "Bits":[], "Shares":[]})`
   - `InputTxCollection`
   - `MotionCollection`
   - `OrphanBlockCollection`
@@ -36,6 +40,9 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
   - `PeerCollection`
   - `SharesAddressCollection`
   - `StatusCollection`
+    - after creation paste in mongo shell 
+      - `db.StatusCollection.insert({_id:"statusInfo"})`,
+      - `db.StatusCollection.insert({_id:"addressLeftOff","blockHeight":0})`
   - `TxCollection`
   - `VoteCollection`
 3. Now, depending on what OS your running, we have to create a `nu.conf` file.
