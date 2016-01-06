@@ -1,0 +1,82 @@
+{
+  "_args": [
+    [
+      "mongo-oplog-watcher@0.0.1",
+      "C:\\Users\\Home\\Documents\\GitHub\\NuExplorerOS"
+    ]
+  ],
+  "_from": "mongo-oplog-watcher@0.0.1",
+  "_id": "mongo-oplog-watcher@0.0.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/mongo-oplog-watcher",
+  "_npmUser": {
+    "email": "deoxxa@fknsrs.biz",
+    "name": "deoxxa"
+  },
+  "_npmVersion": "1.3.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "mongo-oplog-watcher",
+    "raw": "mongo-oplog-watcher@0.0.1",
+    "rawSpec": "0.0.1",
+    "scope": null,
+    "spec": "0.0.1",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mongo-oplog-watcher/-/mongo-oplog-watcher-0.0.1.tgz",
+  "_shasum": "275d1696daf6c4292eaa48d54b057ff6b72ea4e2",
+  "_shrinkwrap": null,
+  "_spec": "mongo-oplog-watcher@0.0.1",
+  "_where": "C:\\Users\\Home\\Documents\\GitHub\\NuExplorerOS",
+  "author": {
+    "email": "deoxxa@fknsrs.biz",
+    "name": "Conrad Pankoff",
+    "url": "http://www.fknsrs.biz/"
+  },
+  "bugs": {
+    "url": "https://github.com/deoxxa/mongo-oplog-watcher/issues"
+  },
+  "dependencies": {
+    "mongoskin": "~1.4.13"
+  },
+  "description": "Watch the MongoDB operation log for events",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "275d1696daf6c4292eaa48d54b057ff6b72ea4e2",
+    "tarball": "http://registry.npmjs.org/mongo-oplog-watcher/-/mongo-oplog-watcher-0.0.1.tgz"
+  },
+  "homepage": "https://github.com/deoxxa/mongo-oplog-watcher#readme",
+  "keywords": [
+    "change",
+    "event",
+    "listen",
+    "live",
+    "mongodb",
+    "oplog",
+    "watch"
+  ],
+  "license": "BSD",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "deoxxa",
+      "email": "deoxxa@fknsrs.biz"
+    }
+  ],
+  "name": "mongo-oplog-watcher",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/deoxxa/mongo-oplog-watcher.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1"
+}
