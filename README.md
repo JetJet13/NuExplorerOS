@@ -26,7 +26,7 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
 
 ###Setup
 1. To start, create a db in mongo shell (for simplicity type `use BlockDB` )
-2. Create the collections in `BlockDB` by typing `db.createCollection('<CollectionName>')
+2. Create the collections in `BlockDB` by typing `db.createCollection('<CollectionName>')`
   - `BlockCollection`
   - `ChartCollection`
   - `InputTxCollection`
