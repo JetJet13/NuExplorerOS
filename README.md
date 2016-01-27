@@ -1,6 +1,8 @@
 nuexplorer
 ==========
 
+[![Join the chat at https://gitter.im/JetJet13/NuExplorerOS](https://badges.gitter.im/JetJet13/NuExplorerOS.svg)](https://gitter.im/JetJet13/NuExplorerOS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ##Nu network Block Explorer
 NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blocks, transactions, and addresses found in the Nu network (https://nubits.com).
 
