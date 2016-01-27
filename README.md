@@ -7,8 +7,8 @@ nuexplorer
 NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blocks, transactions, and addresses found in the Nu network (https://nubits.com).
 
 ###Dependencies
-- Nodejs
-- Mongodb
+- Nodejs v0.10 or greater
+- Mongodb 2.6
 - Nu Client
 
 ###Installation

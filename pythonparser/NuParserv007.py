@@ -1510,10 +1510,14 @@ for x in list_bHash:
                     num_votes = getCustInfo[each][o]["blocks"]
                     cdd = getCustInfo[each][o]["sharedays"]
                     shareday_percentage = getCustInfo[each][o]["shareday_percentage"]
+                    if each[0] == "S":
+                        custo_type = "NSR"
+                    else:
+                        custo_type = "NBT"
                     find_custo = VCL.find({"_id":each+amount_bits})
                     voteCheck = find_custo.count()
                     if voteCheck == 0:#first time seeing the custo, its not in the db
-                        VCL.insert({ "_id":each+amount_bits, "block":bHeight, "address":each, "amount":int(amount_bits), "latestblock":bHeight,\
+                        VCL.insert({ "_id":each+amount_bits,"type":custo_type, "block":bHeight, "address":each, "amount":int(amount_bits), "latestblock":bHeight,\
                                      "num_votes":num_votes, "CDD":cdd, "cust_details":{"passed":"false","blockHeight":0,"tx_id":[],"blockHash":[] } })
                         ispassed = "false"
                     else:#custo is already in the db, update num_votes and CDD
@@ -1707,7 +1711,7 @@ PR_inEffect = sorted(PR_inEffect, key=itemgetter('rate'))
 print PR_inEffect
 
 print "allCDD",allCDD
-getNBT = VCL.find({"cust_details.passed":"true"})
+getNBT = VCL.find({"cust_details.passed":"true",""})
 bitsSupply = 0
 for gNBT in getNBT:
     nbt_amount = gNBT["amount"]
