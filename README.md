@@ -93,6 +93,8 @@ at the bottom:
   - for windows: `blocknotify=C:\<python-location>\python.exe C:\<folder-location>\NuExplorerOS\pythonparser\NuParserv007.py`
   - for linux: `blocknotify=/usr/bin/python /<folder-location>/NuExplorerOS/pythonparser/NuParserv007.py`
 10. now close and reopen nu.exe or nud.exe (whichever you prefer).
+11. start up the server with `node server.js` or `npm start`
+12. open your browser and visit `localhost:800`
 DONE! Your setup and installation is complete.
 If your stuck, feel free to contact me at jgeorges371@gmail.com or write a github issue. 
  
