@@ -85,7 +85,7 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
   - find the variables `blk01`,`blk02` and according to where your `nu.conf` file is located, comment/uncomment
     the correct location 
     i.e) for Windows use: `blk01 = "C:/users/<username>/appdata/roaming/nu/blk0001.dat",blk02=...,blk=""`
-  - now, running the script will insert the latest 2 blocks into the db. Feel free to tinker with
+  - now, running the script will insert the first 10 blocks into the db. Feel free to tinker with
     the variables `fi.seek()`(line 416) and `START`,`END` (lines 486,487) respectively to insert the desired blocks.
 8. Feel free to take a little break at this point :) (steps 6 and 7 are optional)
 9. if you want to insert the latest block discovered (make it realtime), open your `nu.conf` file and add this property 
