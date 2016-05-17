@@ -19,7 +19,7 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
   - a replica set is needed to keep track of changes in db.
   - use mongod `--replSet <name>`; Note: `--auth` and `bind_ip=127.0.0.1` are recommended configurations
 4. Clone the NuExplorer repo to the server you want to deploy it on.
-5. cd into directory `cd ./NuExplorer-master`
+5. cd into directory `cd ./NuExplorerOS-master`
 5. Load dependencies with `sudo npm install`.
 6. Copy the `mongo-oplog-watcher` folder into `node_modules`
 7. Adjust mongodb connection urls according to your mongodb setup
@@ -37,10 +37,10 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
   - for simplicity type `use BlockDB`
 4. Now we need to create collections in `BlockDB` to store our data
   - to do this, type `db.createCollection('<CollectionName>')`
-    -replace '<CollectionName>' with the following names
+    - replace `<CollectionName>` with the following names
     - `BlockCollection`
     - `ChartCollection`
-      - after creation paste in mongo shell
+      - after creating `ChartCollection` paste the following commands in the mongo shell
         - `db.ChartCollection.insert({ "_id":"orphan", "orph":[] })`
         - `db.ChartCollection.insert({ "_id":"diff", "pos":[] })`
         - `db.ChartCollection.insert({ "_id":"numtrans", "Bits":[], "Shares":[]})`
@@ -51,7 +51,7 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
     - `PeerCollection`
     - `SharesAddressCollection`
     - `StatusCollection`
-      - after creation paste in mongo shell 
+      - after creating `StatusCollection` paste the following commands in the mongo shell 
         - `db.StatusCollection.insert({_id:"statusInfo"})`,
         - `db.StatusCollection.insert({_id:"addressLeftOff","blockHeight":0})`
     - `TxCollection`
