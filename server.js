@@ -38,8 +38,8 @@ var oplogStatus = new OplogWatcher({
 
 // configuration ===========================================
 // view engine setup
-app.set('views', path.join(__dirname, './public/app/jade'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, './public/app/pug'));
+app.set('view engine', 'pug');
 app.use(favicon());
 app.use(logger('dev')); 
 app.use(bodyParser.json());

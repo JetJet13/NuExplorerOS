@@ -19,35 +19,45 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
   - a replica set is needed to keep track of changes in db.
   - use mongod `--replSet <name>`; Note: `--auth` and `bind_ip=127.0.0.1` are recommended configurations
 4. Clone the NuExplorer repo to the server you want to deploy it on.
+5. cd into directory `cd ./NuExplorer-master`
 5. Load dependencies with `sudo npm install`.
 6. Copy the `mongo-oplog-watcher` folder into `node_modules`
 7. Adjust mongodb connection urls according to your mongodb setup
-  - connection urls are located in `server.js`, and at the top of each `/public/app/api/*_api.js` scripts 
-8. From the command line, invoke `node server.js` to launch the application.
-9. Open any web browser and enter `localhost:800` in the url. 
+  - connection urls are located in `server.js`, and `/public/app/api/api.tools.js`,specifically `exports.db` 
 
 ###Setup
-1. To start, create a db in mongo shell (for simplicity type `use BlockDB` )
-2. Create the collections in `BlockDB` by typing `db.createCollection('<CollectionName>')`
-  - `BlockCollection`
-  - `ChartCollection`
-    - after creation paste in mongo shell
-      - `db.ChartCollection.insert({ "_id":"orphan", "orph":[] })`
-      - `db.ChartCollection.insert({ "_id":"diff", "pos":[] })`
-      - `db.ChartCollection.insert({ "_id":"numtrans", "Bits":[], "Shares":[]})`
-  - `InputTxCollection`
-  - `MotionCollection`
-  - `OrphanBlockCollection`
-  - `OrphanTxCollection`
-  - `PeerCollection`
-  - `SharesAddressCollection`
-  - `StatusCollection`
-    - after creation paste in mongo shell 
-      - `db.StatusCollection.insert({_id:"statusInfo"})`,
-      - `db.StatusCollection.insert({_id:"addressLeftOff","blockHeight":0})`
-  - `TxCollection`
-  - `VoteCollection`
-3. Now, depending on what OS your running, we have to create a `nu.conf` file.
+1. Start up the mongodb daemon. For simplicity, type `mongod --replSet rs0` to spin up the daemon.
+  - Note this uses a replica set configuration, `--replSet rs0`
+  - The daemon will keep repeating some context telling you that it is waiting for a `mongo shell` connection
+2. To start the mongo shell, simply type `mongo` in a new window pane
+  - Once the mongo shell opens, we have to connect to `mongod --replSet rs0`.
+    - To do this, type `rs.initiate()`
+    - Now, a new line should show with pointer `rs0:PRIMARY>`. If it doesn't,type `use admin`, then `db.shutdownServer()` and repeat step 1.
+3. Now we need to create a new database in mongo shell
+  - for simplicity type `use BlockDB`
+4. Now we need to create collections in `BlockDB` to store our data
+  - to do this, type `db.createCollection('<CollectionName>')`
+    -replace '<CollectionName>' with the following names
+    - `BlockCollection`
+    - `ChartCollection`
+      - after creation paste in mongo shell
+        - `db.ChartCollection.insert({ "_id":"orphan", "orph":[] })`
+        - `db.ChartCollection.insert({ "_id":"diff", "pos":[] })`
+        - `db.ChartCollection.insert({ "_id":"numtrans", "Bits":[], "Shares":[]})`
+    - `InputTxCollection`
+    - `MotionCollection`
+    - `OrphanBlockCollection`
+    - `OrphanTxCollection`
+    - `PeerCollection`
+    - `SharesAddressCollection`
+    - `StatusCollection`
+      - after creation paste in mongo shell 
+        - `db.StatusCollection.insert({_id:"statusInfo"})`,
+        - `db.StatusCollection.insert({_id:"addressLeftOff","blockHeight":0})`
+    - `TxCollection`
+    - `VoteCollection`
+5. Double check that you have created all the collections by typing `show collections` in mongo shell.
+6. Now, depending on what OS your running, we have to create a `nu.conf` file.
   - if your on Windows, head to the folder `C:/users/<username>/appdata/roaming/nu/`
   - if your on Linux, head to the folder `/root/.nu/` (the same might apply to Mac OSX)
   - create a file called `nu.conf` in the folder. (windows users can use notepad)
@@ -67,8 +77,9 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
     - addnode=119.9.75.189                                                                
     - addnode=119.9.12.63                                                                 
     - listen=1 
-4. Open the pythonparser folder, then locate and open `NuParserv007.py` in your choice of IDE
+7. Open the pythonparser folder, then locate and open `NuParserv007.py` in your choice of IDE
   - make sure the dependencies at the top are installed on your system i.e) bitcoinrpc, pymongo, bitstring, etc.
+  - for bitcoinrpc, if you are using pip, use this command to install it `pip install git+https://github.com/jgarzik/python-bitcoinrpc.git`
   - adjust `line 14` according to your mongodb setup
   - adjust `line 30` according to your nu.conf `rpcuser`,`rpcpassword`,`rpcport` properties
   - find the variables `blk01`,`blk02` and according to where your `nu.conf` file is located, comment/uncomment
@@ -76,12 +87,12 @@ NuExplorer is powered by MongoDB, Expressjs, Angularjs and Nodejs. Query for blo
     i.e) for Windows use: `blk01 = "C:/users/<username>/appdata/roaming/nu/blk0001.dat",blk02=...,blk=""`
   - now, running the script will insert the latest 2 blocks into the db. Feel free to tinker with
     the variables `fi.seek()`(line 416) and `START`,`END` (lines 486,487) respectively to insert the desired blocks.
-5. Feel free to take a little break at this point :) (steps 6 and 7 are optional)
-6. if you want to insert the latest block discovered (make it realtime), open your `nu.conf` file and add this property 
+8. Feel free to take a little break at this point :) (steps 6 and 7 are optional)
+9. if you want to insert the latest block discovered (make it realtime), open your `nu.conf` file and add this property 
 at the bottom:
   - for windows: `blocknotify=C:\<python-location>\python.exe C:\<folder-location>\NuExplorerOS\pythonparser\NuParserv007.py`
   - for linux: `blocknotify=/usr/bin/python /<folder-location>/NuExplorerOS/pythonparser/NuParserv007.py`
-7. now close and reopen nu.exe or nud.exe (whichever you prefer).
+10. now close and reopen nu.exe or nud.exe (whichever you prefer).
 DONE! Your setup and installation is complete.
 If your stuck, feel free to contact me at jgeorges371@gmail.com or write a github issue. 
  

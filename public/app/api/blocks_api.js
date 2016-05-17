@@ -1,23 +1,8 @@
-var db = require('mongojs').connect('mongodb://<username>:<password>@127.0.0.1:27017/BlockDB',['BlockCollection','TxCollection','OrphanBlockCollection','OrphanTxCollection']);
-var moment = require('moment');
-var numeral = require('numeral');
+var db = require('./api.tools.js').db;
+var moment = require('./api.tools.js').moment;
+var numeral = require('./api.tools.js').numeral;
+var showLocalDate = require('./api.tools.js').showLocalDate;
 
-function showLocalDate(timestamp){
-  var mmToMonth = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-  var dt = new Date(timestamp * 1000);
-  var mm = mmToMonth[dt.getMonth()];
-  var min = dt.getMinutes();
-if(parseInt(min) < 10){
-
-    var minuto = "0"+min;
-}
-else{
-
-    var minuto = min;
-}
-    
-  return dt.getDate()+" "+mm+" "+dt.getFullYear()+" "+dt.getHours()+":"+minuto;
-};
 //--------------------------------------------------------EXISTS BY ID API------------------------------------------------------------------------
 exports.existsById = function(req,res){ 
 

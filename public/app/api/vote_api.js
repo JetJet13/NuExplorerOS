@@ -1,14 +1,7 @@
-var db = require('mongojs').connect('mongodb://<username>:<password>@127.0.0.1:27017/BlockDB',['BlockCollection','VoteCollection','StatusCollection','TxCollection']);
-var moment = require('moment');
-var numeral = require('numeral');
-
-var appear = function (a,i){
- var result = 0;
- for(var o in a)
-  if(a[o] == i)
-   result++;
- return result;
-}
+var db = require('./api.tools.js').db;
+var moment = require('./api.tools.js').moment;
+var numeral = require('./api.tools.js').numeral;
+var appear = require('./api.tools.js').appear;
 
 
 

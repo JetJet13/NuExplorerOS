@@ -1,7 +1,6 @@
-var db = require('mongojs').connect('mongodb://<username>:<password>@127.0.0.1:27017/BlockDB',['BlockCollection','TxCollection','OrphanTxCollection']);
-var moment = require('moment');
-
-var numeral = require('numeral');
+var db = require('./api.tools.js').db;
+var moment = require('./api.tools.js').moment;
+var numeral = require('./api.tools.js').numeral;
 
 exports.existsById = function(req,res){ 
 
