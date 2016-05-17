@@ -11,7 +11,7 @@ import json
 
 
 client = pymongo.MongoClient("127.0.0.1",27017)
-#client.admin.authenticate("<username>","<password>")
+# client.admin.authenticate("<username>","<password>")
 BDB = client.BlockDB
 #BCL = BDB.blockCollection
 BCT = BDB.BlockCollection
@@ -412,16 +412,21 @@ if os.path.isfile(blk02):
 else:
     blk = blk01
 
+readbytes = 1000
+offset = readbytes * -1
 fi = open(blk,"rb")
-fi.seek(-100000,2)
-data=fi.read()
+# seek(0) means reading from beginning of file; 
+# seek(-10000,2) means reading from end of file with offset 10000 bytes
+fi.seek(0) 
+data=fi.read(30000)
 hex_data =  data.encode('hex')
 
 magic_number = "e6e8e9e5"
 block = hex_data.split(magic_number)
-
+print block
 print len(block)
 del block[0] # the first element in the list is blank, so we get rid of it
+del block[-1] # the last element may not be a hold a full block, so we get rid of it
 
 wed = f7(block)
 last_blocks = len(wed)
@@ -483,8 +488,8 @@ for each in getBlockCheck:
 getBlockCount = access.getblockcount()
 #START BLOCK HEIGHT = 225,879
 #START = BCT.count() + OBCT.count()
-START = len(wed) - 2
-END = len(wed)
+START = 0
+END = 10
 shortBlock = []
 for each in xrange(START,END):
     shortBlock.append(wed[each])
@@ -1595,7 +1600,12 @@ access = AuthServiceProxy("http://user:pass@127.0.0.1:14001")
 getInfo = access.getinfo()
 getDifficulty = access.getdifficulty()
 networkghps = access.getnetworkghps()
-getparkrates = access.getparkrates(BCT.count()-1,"B")
+if BCT.count()-1 < 401:
+    getparkrates = {}
+
+else:
+    getparkrates = access.getparkrates(BCT.count()-1,"B")
+
 getSharedays = access.getcustodianvotes()
 getPeerInfo =access.getpeerinfo()
 for each in getPeerInfo:
@@ -1711,7 +1721,7 @@ PR_inEffect = sorted(PR_inEffect, key=itemgetter('rate'))
 print PR_inEffect
 
 print "allCDD",allCDD
-getNBT = VCL.find({"cust_details.passed":"true",""})
+getNBT = VCL.find({"cust_details.passed":"true"})
 bitsSupply = 0
 for gNBT in getNBT:
     nbt_amount = gNBT["amount"]
